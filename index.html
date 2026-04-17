@@ -396,6 +396,7 @@
   <div class="intro">
     <h2>Welcome</h2>
     <p>This form takes about 10–15 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Post-Graduate Work Permit application.</p>
+    <p style="margin-top:10px;font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Please have your <strong>passport, study permit, and full Canadian address</strong> ready before you start.</p>
   </div>
 
   <form id="mainForm" autocomplete="on" novalidate>
@@ -438,8 +439,8 @@
       <h3><span class="num">2</span>Current immigration status</h3>
 
       <div class="field">
-        <label for="current_status">Status in Canada</label>
-        <select id="current_status" name="current_status">
+        <label for="current_status">Status in Canada<span class="req">*</span></label>
+        <select id="current_status" name="current_status" required>
           <option value="">Select…</option>
           <option>Study Permit</option>
           <option>Work Permit</option>
@@ -456,8 +457,8 @@
           <input id="status_from" name="status_from" type="date">
         </div>
         <div class="field">
-          <label for="status_to">Valid to</label>
-          <input id="status_to" name="status_to" type="date">
+          <label for="status_to">Valid to<span class="req">*</span></label>
+          <input id="status_to" name="status_to" type="date" required>
         </div>
       </div>
     </section>
@@ -467,12 +468,12 @@
       <h3><span class="num">3</span>Passport</h3>
 
       <div class="field">
-        <label for="passport_number">Passport number</label>
-        <input id="passport_number" name="passport_number" type="text">
+        <label for="passport_number">Passport number<span class="req">*</span></label>
+        <input id="passport_number" name="passport_number" type="text" required>
       </div>
       <div class="field">
-        <label for="passport_country">Country of issue</label>
-        <input id="passport_country" name="passport_country" type="text">
+        <label for="passport_country">Country of issue<span class="req">*</span></label>
+        <input id="passport_country" name="passport_country" type="text" required>
       </div>
       <div class="row-2">
         <div class="field">
@@ -480,8 +481,8 @@
           <input id="passport_issued" name="passport_issued" type="date">
         </div>
         <div class="field">
-          <label for="passport_expiry">Expiry date</label>
-          <input id="passport_expiry" name="passport_expiry" type="date">
+          <label for="passport_expiry">Expiry date<span class="req">*</span></label>
+          <input id="passport_expiry" name="passport_expiry" type="date" required>
         </div>
       </div>
     </section>
@@ -549,22 +550,22 @@
         <input id="alt_phone" name="alt_phone" type="tel" inputmode="tel">
       </div>
       <div class="field">
-        <label for="address_street">Street address</label>
-        <input id="address_street" name="address_street" type="text" autocomplete="address-line1">
+        <label for="address_street">Street address<span class="req">*</span></label>
+        <input id="address_street" name="address_street" type="text" autocomplete="address-line1" required>
       </div>
       <div class="row-2">
         <div class="field">
-          <label for="address_city">City</label>
-          <input id="address_city" name="address_city" type="text" autocomplete="address-level2">
+          <label for="address_city">City<span class="req">*</span></label>
+          <input id="address_city" name="address_city" type="text" autocomplete="address-level2" required>
         </div>
         <div class="field">
-          <label for="address_province">Province</label>
-          <input id="address_province" name="address_province" type="text" autocomplete="address-level1">
+          <label for="address_province">Province<span class="req">*</span></label>
+          <input id="address_province" name="address_province" type="text" autocomplete="address-level1" required>
         </div>
       </div>
       <div class="field">
-        <label for="postal_code">Postal code</label>
-        <input id="postal_code" name="postal_code" type="text" autocomplete="postal-code" style="text-transform:uppercase">
+        <label for="postal_code">Postal code<span class="req">*</span></label>
+        <input id="postal_code" name="postal_code" type="text" autocomplete="postal-code" required style="text-transform:uppercase">
       </div>
     </section>
 
@@ -613,7 +614,7 @@
     <!-- ─── 9 ADMISSIBILITY ──────────────────────────── -->
     <section class="card">
       <h3><span class="num">9</span>Admissibility questions</h3>
-      <p class="lead">Answer each truthfully. Misrepresentation under IRPA s.40 can lead to a 5-year ban.</p>
+      <p class="lead">All questions are required. Answer each truthfully. Misrepresentation under IRPA s.40 can lead to a 5-year ban.</p>
       <div id="aqWrap"></div>
     </section>
 
@@ -797,11 +798,11 @@ aqQuestions.forEach((q, idx) => {
   const [k, text] = q;
   aqWrap.insertAdjacentHTML('beforeend', `
     <div class="field" style="margin-bottom:18px;">
-      <label class="group-label" style="font-size:14px;">${idx+1}. ${text}</label>
+      <label class="group-label" style="font-size:14px;">${idx+1}. ${text}<span class="req">*</span></label>
       <div class="yn">
-        <input type="radio" id="aq_${k}_y" name="aq_${k}" value="Yes">
+        <input type="radio" id="aq_${k}_y" name="aq_${k}" value="Yes" required>
         <label for="aq_${k}_y">Yes</label>
-        <input type="radio" id="aq_${k}_n" name="aq_${k}" value="No">
+        <input type="radio" id="aq_${k}_n" name="aq_${k}" value="No" required>
         <label for="aq_${k}_n">No</label>
       </div>
       <div class="yn-detail" id="aq_${k}_d">
@@ -919,18 +920,67 @@ function showError(msg) {
   setTimeout(() => errToast.classList.remove('show'), 5000);
 }
 
+// Friendly labels for each required field — used in error messages.
+const REQUIRED = [
+  ['full_name',        'Full legal name'],
+  ['dob',              'Date of birth'],
+  ['country_birth',    'Country of birth'],
+  ['citizenship',      'Country of citizenship'],
+  ['current_status',   'Current immigration status'],
+  ['status_to',        'Status valid-to date'],
+  ['passport_number',  'Passport number'],
+  ['passport_country', 'Passport country of issue'],
+  ['passport_expiry',  'Passport expiry date'],
+  ['phone',            'Phone number'],
+  ['email',            'Email address'],
+  ['address_street',   'Street address'],
+  ['address_city',     'City'],
+  ['address_province', 'Province'],
+  ['postal_code',      'Postal code'],
+  ['sig_name',         'Typed signature (full name)'],
+  ['sig_date',         'Signature date']
+];
+
 function validate() {
-  const required = ['full_name', 'dob', 'country_birth', 'citizenship', 'phone', 'email', 'sig_name', 'sig_date'];
-  for (const name of required) {
+  for (const [name, label] of REQUIRED) {
     const el = form.elements[name];
-    if (!el || !el.value.trim()) {
+    if (!el || !String(el.value || '').trim()) {
       el && el.focus();
-      showError('Missing required field: ' + (el.previousElementSibling ? el.previousElementSibling.textContent.replace('*', '') : name));
+      el && el.scrollIntoView({behavior:'smooth', block:'center'});
+      showError('Missing: ' + label);
       return false;
     }
   }
+  // Email format
+  const email = form.elements['email'].value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showError('Email address looks invalid.');
+    form.elements['email'].focus();
+    return false;
+  }
+  // Admissibility — every question must have Yes or No, and any "Yes" needs detail
+  for (let i = 0; i < aqQuestions.length; i++) {
+    const k = aqQuestions[i][0];
+    const checked = form.querySelector('input[name="aq_' + k + '"]:checked');
+    if (!checked) {
+      showError('Admissibility Q' + (i + 1) + ' needs a Yes or No answer.');
+      const yn = document.getElementById('aq_' + k + '_y');
+      yn && yn.closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+      return false;
+    }
+    if (checked.value === 'Yes') {
+      const detail = form.elements['aq_' + k + '_detail'];
+      if (!detail || !detail.value.trim()) {
+        showError('Q' + (i + 1) + ' answered "Yes" — please add details.');
+        detail && detail.focus();
+        detail && detail.scrollIntoView({behavior:'smooth', block:'center'});
+        return false;
+      }
+    }
+  }
+  // Consent
   if (!document.getElementById('consent1').checked || !document.getElementById('consent2').checked) {
-    showError('Please tick both authorization boxes.');
+    showError('Please tick both authorization boxes at the bottom.');
     document.getElementById('consent1').scrollIntoView({behavior:'smooth', block:'center'});
     return false;
   }
