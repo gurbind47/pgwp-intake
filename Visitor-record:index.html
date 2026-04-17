@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a3a5c">
+<meta name="description" content="JSR Immigration Ltd. — Visitor Record extension intake form. Extend your status as a visitor in Canada.">
+<title>Visitor Record Extension · JSR Immigration Ltd.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231a3a5c'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='44' fill='%23fff'%3EJSR%3C/text%3E%3C/svg%3E">
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  :root {
+    --navy: #1a3a5c;
+    --navy-dark: #122a44;
+    --gold: #c9a76b;
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #15202b;
+    --text-muted: #5b6b7d;
+    --border: #d9dee5;
+    --border-strong: #b8c2cf;
+    --error: #c0392b;
+    --error-bg: #fde8e6;
+    --success: #1f8a4c;
+    --warn-bg: #fff3cd;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow-sm: 0 1px 2px rgba(15,30,50,0.06);
+    --shadow-md: 0 4px 14px rgba(15,30,50,0.10);
+    --tap: 52px;
+    --gap: 14px;
+    --pad: 18px;
+    --t-hd: 22px;
+    --t-md: 17px;
+    --t-sm: 15px;
+    --t-xs: 13px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1722;
+      --card: #1a2433;
+      --text: #e8edf3;
+      --text-muted: #97a4b3;
+      --border: #2c3a4d;
+      --border-strong: #3d4d63;
+      --error-bg: #3a1c19;
+      --warn-bg: #3a3018;
+    }
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font: 400 var(--t-md)/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 88px);
+  }
+  header.app-header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--navy); color: #fff;
+    padding: 14px var(--pad) 14px;
+    padding-top: calc(env(safe-area-inset-top) + 14px);
+    box-shadow: var(--shadow-md);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 38px; height: 38px;
+    background: var(--card); color: var(--navy);
+    border-radius: 9px;
+    display: grid; place-items: center;
+    font-family: Georgia, serif; font-weight: 700; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .brand-text h1 { margin: 0; font-size: var(--t-md); font-weight: 600; line-height: 1.2; }
+  .brand-text p  { margin: 2px 0 0; font-size: var(--t-xs); color: rgba(255,255,255,0.78); }
+
+  main { max-width: 720px; margin: 0 auto; padding: var(--pad); }
+  .intro {
+    background: var(--card); border-radius: var(--radius);
+    padding: 18px; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border); margin-bottom: 20px;
+  }
+  .intro h2 { margin: 0 0 6px; font-size: var(--t-hd); font-weight: 700; letter-spacing: -0.01em; }
+  .intro p  { margin: 0; color: var(--text-muted); font-size: var(--t-sm); }
+  .intro p + p { margin-top: 10px; }
+
+  .fee-box {
+    background: rgba(201,167,107,0.12);
+    border-left: 4px solid var(--gold);
+    padding: 14px 16px; border-radius: var(--radius-sm);
+    margin-bottom: 18px; font-size: var(--t-sm);
+  }
+  .fee-box strong { color: var(--navy); }
+  @media (prefers-color-scheme: dark) { .fee-box strong { color: var(--gold); } }
+
+  section.card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 18px; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border); margin-bottom: 18px;
+  }
+  section.card > h3 {
+    margin: 0 0 4px; font-size: var(--t-md); font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+  }
+  section.card > h3 .num {
+    width: 26px; height: 26px;
+    background: var(--navy); color: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  section.card > .lead {
+    margin: 0 0 16px; color: var(--text-muted);
+    font-size: var(--t-xs); padding-left: 36px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: var(--gap); }
+  .field label, .group-label {
+    font-size: var(--t-xs); font-weight: 600; color: var(--text); letter-spacing: 0.02em;
+  }
+  .field label .req { color: var(--error); margin-left: 2px; }
+  .field .help { font-size: 12px; color: var(--text-muted); }
+
+  input[type="text"], input[type="email"], input[type="tel"],
+  input[type="date"], input[type="number"], input[type="url"],
+  select, textarea {
+    width: 100%; min-height: var(--tap);
+    padding: 12px 14px; background: var(--card); color: var(--text);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font: inherit;
+    -webkit-appearance: none; appearance: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235b6b7d' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(26,58,92,0.18);
+  }
+  input:invalid:not(:placeholder-shown) { border-color: var(--error); }
+
+  .row-2 { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
+  @media (min-width: 560px) {
+    .row-2 { grid-template-columns: 1fr 1fr; }
+    .row-2 > .field { margin-bottom: 0; }
+  }
+
+  .yn {
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 4px; gap: 4px;
+  }
+  .yn input { display: none; }
+  .yn label {
+    text-align: center; padding: 12px; border-radius: 8px;
+    font-weight: 600; font-size: var(--t-sm);
+    cursor: pointer; color: var(--text-muted);
+    min-height: 44px; display: grid; place-items: center;
+    transition: background .15s, color .15s;
+  }
+  .yn input:checked + label { background: var(--navy); color: #fff; box-shadow: var(--shadow-sm); }
+
+  .reveal { display: none; margin-top: var(--gap); }
+  .reveal.show { display: block; }
+  .reveal-detail { display: none; margin-top: var(--gap); }
+  .reveal-detail.show { display: block; }
+
+  .check {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); background: var(--bg);
+    margin-bottom: 10px; cursor: pointer;
+  }
+  .check.disabled { opacity: 0.45; cursor: not-allowed; }
+  .check input { width: 22px; height: 22px; margin: 0; flex-shrink: 0; accent-color: var(--navy); }
+  .check span { font-size: var(--t-sm); line-height: 1.45; }
+
+  .decl-box {
+    background: rgba(26,58,92,0.05);
+    border-left: 3px solid var(--navy);
+    padding: 14px; border-radius: var(--radius-sm);
+    margin-bottom: 16px; font-size: var(--t-sm);
+  }
+  .decl-box p { margin: 0 0 8px; }
+  .decl-box p:last-child { margin: 0; }
+
+  .warn-box {
+    background: var(--error-bg);
+    border-left: 3px solid var(--error);
+    padding: 14px; border-radius: var(--radius-sm);
+    margin-top: var(--gap); font-size: var(--t-sm);
+    display: none;
+  }
+  .warn-box.show { display: block; }
+
+  .info-box {
+    background: rgba(31,138,76,0.08);
+    border-left: 3px solid var(--success);
+    padding: 12px 14px; border-radius: var(--radius-sm);
+    margin-top: var(--gap); font-size: var(--t-sm);
+    display: none;
+  }
+  .info-box.show { display: block; }
+
+  .sigwrap {
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: #fff; overflow: hidden; position: relative;
+  }
+  .sigwrap canvas { display: block; width: 100%; height: 160px; touch-action: none; }
+  .sigwrap .clear {
+    position: absolute; top: 8px; right: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; font-size: 12px;
+    padding: 4px 10px; cursor: pointer; color: var(--text-muted);
+  }
+  .sighint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+  .submit-bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 12px var(--pad) calc(env(safe-area-inset-bottom) + 12px);
+    box-shadow: 0 -4px 14px rgba(15,30,50,0.08); z-index: 40;
+  }
+  .submit-bar .inner {
+    max-width: 720px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .save-tag { font-size: 11px; color: var(--text-muted); flex: 1; line-height: 1.3; }
+  .btn-submit {
+    flex-shrink: 0; min-height: var(--tap);
+    padding: 14px 22px; background: var(--navy); color: #fff;
+    border: 0; border-radius: var(--radius-sm);
+    font: 600 var(--t-md)/1 inherit; cursor: pointer;
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-submit .spin {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff; border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .success { display: none; text-align: center; padding: 40px 24px; }
+  .success.show { display: block; }
+  .success .check-circle {
+    width: 80px; height: 80px; background: var(--success);
+    border-radius: 50%; display: grid; place-items: center;
+    margin: 0 auto 20px; color: #fff;
+  }
+  .success h2 { margin: 0 0 8px; font-size: var(--t-hd); }
+  .success p { margin: 0 0 8px; color: var(--text-muted); }
+  .success .biz { margin-top: 28px; padding: 18px; background: var(--warn-bg); border-radius: var(--radius-sm); font-size: var(--t-sm); }
+
+  .err-toast {
+    position: fixed; left: 12px; right: 12px;
+    bottom: calc(env(safe-area-inset-bottom) + 88px);
+    background: var(--error); color: #fff;
+    padding: 14px 18px; border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md); font-size: var(--t-sm);
+    z-index: 60; transform: translateY(150%); transition: transform .25s;
+    max-width: 696px; margin: 0 auto;
+  }
+  .err-toast.show { transform: translateY(0); }
+
+  .footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: var(--t-xs); }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="brand-mark">JSR</div>
+    <div class="brand-text">
+      <h1>Visitor Record Extension</h1>
+      <p>JSR Immigration Ltd. · RCIC #R712841</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div id="formWrap">
+
+  <div class="intro">
+    <h2>Extend your visitor status</h2>
+    <p>This form takes about 10–15 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Visitor Record extension application.</p>
+    <p style="font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Have your <strong>passport, current/previous status document, and bank statement</strong> ready before you start.</p>
+  </div>
+
+  <div class="fee-box">
+    <p style="margin:0 0 6px;"><strong>Estimated cost</strong></p>
+    <ul style="margin:0; padding-left: 20px; font-size: 14px;">
+      <li>IRCC fee: <strong>$100</strong> (+ <strong>$239.75 restoration</strong> if your status has already expired)</li>
+      <li>Professional fee (JSR Immigration Ltd.): <strong>$300</strong></li>
+      <li>Payment: e-transfer to <strong>info@jsrimmigration.com</strong></li>
+    </ul>
+  </div>
+
+  <form id="mainForm" autocomplete="on" novalidate>
+
+    <!-- ─── 1 PERSONAL ────────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">1</span>Personal information</h3>
+      <p class="lead">Exactly as on your passport.</p>
+
+      <div class="field">
+        <label for="full_name">Full legal name<span class="req">*</span></label>
+        <input id="full_name" name="full_name" type="text" required>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="uci">UCI number</label>
+          <input id="uci" name="uci" type="text" placeholder="If you have one">
+        </div>
+        <div class="field">
+          <label for="dob">Date of birth<span class="req">*</span></label>
+          <input id="dob" name="dob" type="date" required>
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="country_birth">Country of birth<span class="req">*</span></label>
+          <input id="country_birth" name="country_birth" type="text" required>
+        </div>
+        <div class="field">
+          <label for="citizenship">Country of citizenship<span class="req">*</span></label>
+          <input id="citizenship" name="citizenship" type="text" required>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 2 CONTACT ─────────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">2</span>Contact &amp; address</h3>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="phone">Phone<span class="req">*</span></label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" required>
+        </div>
+        <div class="field">
+          <label for="email">Email<span class="req">*</span></label>
+          <input id="email" name="email" type="email" inputmode="email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="alt_phone">Alternate phone</label>
+        <input id="alt_phone" name="alt_phone" type="tel" inputmode="tel">
+      </div>
+      <div class="field">
+        <label for="address_street">Street address<span class="req">*</span></label>
+        <input id="address_street" name="address_street" type="text" autocomplete="address-line1" required>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="address_city">City<span class="req">*</span></label>
+          <input id="address_city" name="address_city" type="text" autocomplete="address-level2" required>
+        </div>
+        <div class="field">
+          <label for="address_province">Province<span class="req">*</span></label>
+          <input id="address_province" name="address_province" type="text" autocomplete="address-level1" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="postal_code">Postal code<span class="req">*</span></label>
+        <input id="postal_code" name="postal_code" type="text" autocomplete="postal-code" required style="text-transform:uppercase">
+      </div>
+    </section>
+
+    <!-- ─── 3 MARITAL ─────────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">3</span>Marital status</h3>
+
+      <div class="field">
+        <label for="marital_status">Status<span class="req">*</span></label>
+        <select id="marital_status" name="marital_status" required>
+          <option value="">Select…</option>
+          <option>Single</option>
+          <option>Married</option>
+          <option>Common-Law</option>
+          <option>Separated</option>
+          <option>Divorced</option>
+          <option>Widowed</option>
+        </select>
+      </div>
+
+      <div class="reveal" id="partnerReveal">
+        <div class="row-2">
+          <div class="field">
+            <label for="partner_first">Partner first name</label>
+            <input id="partner_first" name="partner_first" type="text">
+          </div>
+          <div class="field">
+            <label for="partner_last">Partner last name</label>
+            <input id="partner_last" name="partner_last" type="text">
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="partner_dob">Partner DOB</label>
+            <input id="partner_dob" name="partner_dob" type="date">
+          </div>
+          <div class="field">
+            <label for="date_of_marriage">Date of marriage / relationship</label>
+            <input id="date_of_marriage" name="date_of_marriage" type="date">
+          </div>
+        </div>
+        <div class="field">
+          <label for="date_of_separation">Date of separation / divorce / passing</label>
+          <input id="date_of_separation" name="date_of_separation" type="date">
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 4 STATUS & RESTORATION ────────────────────── -->
+    <section class="card">
+      <h3><span class="num">4</span>Current status &amp; restoration</h3>
+
+      <div class="field">
+        <label for="current_status">Current status in Canada<span class="req">*</span></label>
+        <select id="current_status" name="current_status" required>
+          <option value="">Select…</option>
+          <option>Visitor (TRV)</option>
+          <option>Visitor Record</option>
+          <option>Study Permit</option>
+          <option>Work Permit</option>
+          <option>Implied Status</option>
+          <option>Status Expired</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="status_to">Status valid until<span class="req">*</span></label>
+        <input id="status_to" name="status_to" type="date" required>
+      </div>
+
+      <div class="field">
+        <label class="group-label">Has your current status already expired?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="status_expired_y" name="status_expired" value="Yes" required>
+          <label for="status_expired_y">Yes</label>
+          <input type="radio" id="status_expired_n" name="status_expired" value="No" required>
+          <label for="status_expired_n">No</label>
+        </div>
+        <div class="info-box" id="restorationInfo">
+          <strong>Restoration applies.</strong> An additional <strong>$239.75</strong> IRCC fee will apply. Restoration must be filed <strong>within 90 days</strong> of status loss. Submit ASAP.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 5 INVITER / FINANCIAL ─────────────────────── -->
+    <section class="card">
+      <h3><span class="num">5</span>Inviter / financial support</h3>
+      <p class="lead">An inviter (Canadian PR, citizen, or temporary resident) is optional but recommended if you do not have sufficient personal funds.</p>
+
+      <div class="field">
+        <label class="group-label">Do you have an inviter who can support your application?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="inviter_present_y" name="inviter_present" value="Yes" required>
+          <label for="inviter_present_y">Yes</label>
+          <input type="radio" id="inviter_present_n" name="inviter_present" value="No" required>
+          <label for="inviter_present_n">No</label>
+        </div>
+      </div>
+
+      <div class="reveal" id="inviterReveal">
+        <div class="decl-box" style="font-size:13px;">
+          <strong>Recommended:</strong> bank balance of <strong>$3,000–$5,000 minimum</strong> in accessible savings.
+        </div>
+
+        <div class="field">
+          <label for="inviter_name">Inviter's full legal name</label>
+          <input id="inviter_name" name="inviter_name" type="text">
+        </div>
+        <div class="field">
+          <label for="inviter_address">Inviter's complete address</label>
+          <textarea id="inviter_address" name="inviter_address" rows="2" placeholder="Street, city, province, postal code"></textarea>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="inviter_email">Inviter's email</label>
+            <input id="inviter_email" name="inviter_email" type="email">
+          </div>
+          <div class="field">
+            <label for="inviter_phone">Inviter's phone</label>
+            <input id="inviter_phone" name="inviter_phone" type="tel">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="group-label">Is the inviter currently employed?</label>
+          <div class="yn">
+            <input type="radio" id="inviter_employed_y" name="inviter_employed" value="Yes">
+            <label for="inviter_employed_y">Yes</label>
+            <input type="radio" id="inviter_employed_n" name="inviter_employed" value="No">
+            <label for="inviter_employed_n">No</label>
+          </div>
+        </div>
+
+        <div class="reveal-detail" id="inviterJobReveal">
+          <div class="field">
+            <label for="inviter_job_title">Inviter's job title</label>
+            <input id="inviter_job_title" name="inviter_job_title" type="text">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="inviter_bank_balance">Inviter's bank balance (CAD, approximate)</label>
+          <input id="inviter_bank_balance" name="inviter_bank_balance" type="number" inputmode="numeric" placeholder="e.g. 5000">
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 6 ENTRY TO CANADA ─────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">6</span>Entry to Canada</h3>
+      <p class="lead">When you first entered Canada, and your most recent entry if different.</p>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="original_entry_date">Original entry date<span class="req">*</span></label>
+          <input id="original_entry_date" name="original_entry_date" type="date" required>
+        </div>
+        <div class="field">
+          <label for="original_entry_place">Original entry place<span class="req">*</span></label>
+          <input id="original_entry_place" name="original_entry_place" type="text" placeholder="e.g. Toronto Pearson (YYZ)" required>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="recent_entry_date">Most recent entry date</label>
+          <input id="recent_entry_date" name="recent_entry_date" type="date">
+        </div>
+        <div class="field">
+          <label for="recent_entry_place">Most recent entry place</label>
+          <input id="recent_entry_place" name="recent_entry_place" type="text" placeholder="Only if different from original">
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 7 EDUCATION ──────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">7</span>Education</h3>
+      <p class="lead">Highest level of post-secondary education completed.</p>
+
+      <div class="field">
+        <label for="highest_education">Highest level<span class="req">*</span></label>
+        <select id="highest_education" name="highest_education" required>
+          <option value="">Select…</option>
+          <option>None</option>
+          <option>Grade 12 / High School</option>
+          <option>Diploma / Certificate</option>
+          <option>Bachelor</option>
+          <option>Master</option>
+          <option>PhD</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="program_name">Program name</label>
+        <input id="program_name" name="program_name" type="text" placeholder="e.g. Bachelor of Commerce">
+      </div>
+
+      <div class="field">
+        <label for="school_name">School / college / university</label>
+        <input id="school_name" name="school_name" type="text">
+      </div>
+
+      <div class="field">
+        <label for="school_address">School address</label>
+        <input id="school_address" name="school_address" type="text" placeholder="City, country">
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="edu_start_date">Start date</label>
+          <input id="edu_start_date" name="edu_start_date" type="date">
+        </div>
+        <div class="field">
+          <label for="edu_end_date">Finish date</label>
+          <input id="edu_end_date" name="edu_end_date" type="date">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="additional_education">Other education / training</label>
+        <textarea id="additional_education" name="additional_education" rows="2" placeholder="Optional. List any other diplomas, certificates, courses, with dates."></textarea>
+      </div>
+    </section>
+
+    <!-- ─── 8 WORK EXPERIENCE ────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">8</span>Work experience</h3>
+      <p class="lead">Last 10 years OR since age 18, whichever is shorter.</p>
+
+      <div class="field">
+        <label class="group-label">Did you work in the last 10 years (or since age 18)?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="has_work_y" name="has_work_experience" value="Yes" required>
+          <label for="has_work_y">Yes</label>
+          <input type="radio" id="has_work_n" name="has_work_experience" value="No" required>
+          <label for="has_work_n">No</label>
+        </div>
+      </div>
+
+      <div class="reveal" id="workReveal">
+        <div class="field">
+          <label for="occupation">Occupation / job title</label>
+          <input id="occupation" name="occupation" type="text">
+        </div>
+        <div class="field">
+          <label for="company">Company name</label>
+          <input id="company" name="company" type="text">
+        </div>
+        <div class="field">
+          <label for="work_address">Workplace address</label>
+          <input id="work_address" name="work_address" type="text" placeholder="City, country">
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="work_start">Start date</label>
+            <input id="work_start" name="work_start" type="date">
+          </div>
+          <div class="field">
+            <label for="work_end">End date</label>
+            <input id="work_end" name="work_end" type="date">
+            <span class="help">Use today's date if still working.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="additional_jobs">Other jobs (if any)</label>
+          <textarea id="additional_jobs" name="additional_jobs" rows="3" placeholder="List each: company, role, start date – end date."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 9 ADMISSIBILITY ──────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">9</span>Admissibility &amp; status history</h3>
+      <p class="lead">All questions are required. Answer truthfully — providing false information may result in a 5-year bar from Canada.</p>
+      <div id="aqWrap"></div>
+    </section>
+
+    <!-- ─── 10 DOCUMENT CHECKLIST ────────────────────── -->
+    <section class="card">
+      <h3><span class="num">10</span>Document checklist</h3>
+      <p class="lead">Confirm you have or will provide each document below.</p>
+      <div id="docWrap"></div>
+    </section>
+
+    <!-- ─── 11 DECLARATION ───────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">11</span>Declaration &amp; signature</h3>
+
+      <div class="decl-box">
+        <p><strong>Declaration of accuracy.</strong> I declare that the information provided in this form is true, complete, and accurate to the best of my knowledge. I understand that providing false or misleading information constitutes misrepresentation under section 40 of the <em>Immigration and Refugee Protection Act</em> (IRPA), which may result in a finding of inadmissibility.</p>
+        <p><strong>Authorization.</strong> I authorize JSR Immigration Ltd. and its licensed representatives (RCIC #R712841) to use the information in this form to prepare and submit my Visitor Record extension application and to communicate with IRCC on my behalf.</p>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="consent1" name="consent1" required>
+        <span>I confirm the information above is true, complete, and accurate.</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="consent2" name="consent2" required>
+        <span>I authorize JSR Immigration Ltd. to act as my representative.</span>
+      </label>
+
+      <div class="row-2" style="margin-top:14px;">
+        <div class="field">
+          <label for="sig_name">Type your full name<span class="req">*</span></label>
+          <input id="sig_name" name="sig_name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="sig_date">Date<span class="req">*</span></label>
+          <input id="sig_date" name="sig_date" type="date" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="group-label">Signature (draw with finger or mouse)</label>
+        <div class="sigwrap">
+          <canvas id="sigPad"></canvas>
+          <button type="button" class="clear" id="sigClear">Clear</button>
+        </div>
+        <p class="sighint">Optional. Your typed name above also serves as a legal signature.</p>
+      </div>
+    </section>
+
+  </form>
+
+  <div class="footer">JSR Immigration Ltd. · RCIC #R712841 · info@jsrimmigration.com</div>
+</div>
+
+<div class="success" id="successScreen">
+  <div class="check-circle">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+  <h2>Form received</h2>
+  <p>Your Visitor Record extension intake has been securely submitted.</p>
+  <p>A consultant will review and contact you within 1–2 business days.</p>
+  <div class="biz">
+    <div style="font-size:11px; color:var(--text-muted);">RCIC #R712841</div>
+    <div style="font-weight:700; margin-top:4px;">JSR Immigration Ltd.</div>
+    <div style="margin-top:4px;">Brampton, Ontario · <a href="mailto:info@jsrimmigration.com">info@jsrimmigration.com</a></div>
+  </div>
+</div>
+
+</main>
+
+<div class="submit-bar" id="submitBar">
+  <div class="inner">
+    <div class="save-tag" id="saveTag">Auto-saved</div>
+    <button type="button" class="btn-submit" id="submitBtn" form="mainForm">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/>
+      </svg>
+      Submit
+    </button>
+  </div>
+</div>
+
+<div class="err-toast" id="errToast"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+// CONFIG — same web app URL as PGWP form (one Apps Script handles both)
+// ════════════════════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby18tjEcOuAMoMJms9xTeyTgA6FBFh_085w11ayLH_ioDo0ZY5NafW7iZmhOIuNZE7Seg/exec';
+const STORAGE_KEY = 'visitor_record_intake_v1';
+
+// ── Conditional reveals ─────────────────────────────────────────────
+const partnerReveal = document.getElementById('partnerReveal');
+document.getElementById('marital_status').addEventListener('change', e => {
+  partnerReveal.classList.toggle('show', e.target.value && e.target.value !== 'Single');
+});
+
+const restorationInfo = document.getElementById('restorationInfo');
+document.querySelectorAll('input[name="status_expired"]').forEach(r => {
+  r.addEventListener('change', e => {
+    restorationInfo.classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+const inviterReveal = document.getElementById('inviterReveal');
+document.querySelectorAll('input[name="inviter_present"]').forEach(r => {
+  r.addEventListener('change', e => {
+    inviterReveal.classList.toggle('show', e.target.value === 'Yes');
+    refreshDocChecklistConditionals();
+  });
+});
+
+const inviterJobReveal = document.getElementById('inviterJobReveal');
+document.querySelectorAll('input[name="inviter_employed"]').forEach(r => {
+  r.addEventListener('change', e => {
+    inviterJobReveal.classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+const workReveal = document.getElementById('workReveal');
+document.querySelectorAll('input[name="has_work_experience"]').forEach(r => {
+  r.addEventListener('change', e => {
+    workReveal.classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+document.getElementById('marital_status').addEventListener('change', refreshDocChecklistConditionals);
+
+// ── Admissibility questions (6 for visitor record) ─────────────────
+const aqQuestions = [
+  ['criminal',   'Have you ever been convicted of, or are you currently charged with, any criminal offence in any country?'],
+  ['refusal',    'Have you ever been refused a visa or permit, or denied entry to Canada or any other country?'],
+  ['removal',    'Have you ever been ordered to leave or been removed from Canada or any other country?'],
+  ['overstay',   'Have you ever overstayed your visa or failed to comply with the conditions of your stay in Canada or any other country?'],
+  ['medical',    'Have you been diagnosed with TB or any other serious medical condition in the past two years?'],
+  ['cdn_status', 'Do you currently hold, or have you previously held, valid Canadian status (visitor visa, study permit, work permit, etc.)?']
+];
+const aqWrap = document.getElementById('aqWrap');
+aqQuestions.forEach((q, idx) => {
+  const [k, text] = q;
+  const isQ33 = (k === 'cdn_status');
+  aqWrap.insertAdjacentHTML('beforeend', `
+    <div class="field" style="margin-bottom:18px;">
+      <label class="group-label" style="font-size:14px;">${idx+1}. ${text}<span class="req">*</span></label>
+      <div class="yn">
+        <input type="radio" id="aq_${k}_y" name="aq_${k}" value="Yes" required>
+        <label for="aq_${k}_y">Yes</label>
+        <input type="radio" id="aq_${k}_n" name="aq_${k}" value="No" required>
+        <label for="aq_${k}_n">No</label>
+      </div>
+      <div class="reveal-detail" id="aq_${k}_d">
+        <textarea name="aq_${k}_detail" placeholder="Please provide details…" rows="2"></textarea>
+      </div>
+      ${isQ33 ? '<div class="warn-box" id="q33Warn"><strong>Heads up.</strong> A Visitor Record extension requires that you currently hold or previously held valid Canadian status. If this does not apply to you, please contact JSR before submitting — you may need a different application type.</div>' : ''}
+    </div>`);
+});
+aqWrap.addEventListener('change', e => {
+  if (!e.target.name || !e.target.name.startsWith('aq_')) return;
+  const k = e.target.name.replace('aq_', '');
+  // For most questions: show details textarea on "Yes". For Q33: show details on "Yes" AND show warning on "No".
+  if (k === 'cdn_status') {
+    const detail = document.getElementById('aq_cdn_status_d');
+    const warn   = document.getElementById('q33Warn');
+    detail && detail.classList.toggle('show', e.target.value === 'Yes');
+    warn   && warn.classList.toggle('show', e.target.value === 'No');
+  } else {
+    const detail = document.getElementById('aq_' + k + '_d');
+    detail && detail.classList.toggle('show', e.target.value === 'Yes');
+  }
+});
+
+// ── Document checklist ─────────────────────────────────────────────
+const docs = [
+  { key:'doc_financial', label:'Proof of financial support (bank statements, $5,000–$10,000 minimum recommended)' },
+  { key:'doc_passport',  label:'Passport (with all entry/exit stamps and visa pages)' },
+  { key:'doc_status',    label:'Current or previous Canadian status document (study permit, work permit, visitor record, etc.)' },
+  { key:'doc_photo',     label:'Digital passport-style photo' },
+  { key:'doc_edu_emp',   label:'Education / employment documents (transcripts, LOA, job letter, recent pay stubs)' },
+  { key:'doc_inviter',   label:"Inviter's supporting documents (passport, ID, financial documents)", requiresInviter: true },
+  { key:'doc_medical',   label:'Medical examination (optional but recommended)' },
+  { key:'doc_marriage',  label:'Marriage certificate', requiresMarried: true }
+];
+const docWrap = document.getElementById('docWrap');
+docs.forEach(doc => {
+  docWrap.insertAdjacentHTML('beforeend',
+    `<label class="check" data-key="${doc.key}"${doc.requiresInviter ? ' data-requires-inviter="1"' : ''}${doc.requiresMarried ? ' data-requires-married="1"' : ''}>
+      <input type="checkbox" name="${doc.key}" value="1">
+      <span>${doc.label}</span>
+    </label>`);
+});
+
+function refreshDocChecklistConditionals() {
+  const inviterYes = document.querySelector('input[name="inviter_present"]:checked');
+  const married    = document.getElementById('marital_status').value;
+  const inviterOn  = inviterYes && inviterYes.value === 'Yes';
+  const marriedOn  = (married === 'Married' || married === 'Common-Law');
+  document.querySelectorAll('.check[data-requires-inviter]').forEach(el => {
+    el.classList.toggle('disabled', !inviterOn);
+    const cb = el.querySelector('input');
+    if (cb) cb.disabled = !inviterOn;
+    if (!inviterOn && cb) cb.checked = false;
+  });
+  document.querySelectorAll('.check[data-requires-married]').forEach(el => {
+    el.classList.toggle('disabled', !marriedOn);
+    const cb = el.querySelector('input');
+    if (cb) cb.disabled = !marriedOn;
+    if (!marriedOn && cb) cb.checked = false;
+  });
+}
+refreshDocChecklistConditionals();
+
+// ── Signature pad ──────────────────────────────────────────────────
+const canvas = document.getElementById('sigPad');
+const ctx = canvas.getContext('2d');
+let drawing = false, lastX = 0, lastY = 0, hasDrawn = false;
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#15202b';
+}
+window.addEventListener('load', resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
+
+function pos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const t = e.touches ? e.touches[0] : e;
+  return [t.clientX - rect.left, t.clientY - rect.top];
+}
+function start(e) { e.preventDefault(); drawing = true; [lastX, lastY] = pos(e); }
+function move(e)  {
+  if (!drawing) return; e.preventDefault();
+  const [x, y] = pos(e);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
+  [lastX, lastY] = [x, y]; hasDrawn = true;
+}
+function end() { drawing = false; }
+canvas.addEventListener('mousedown', start);  canvas.addEventListener('mousemove', move);
+canvas.addEventListener('mouseup', end);      canvas.addEventListener('mouseout', end);
+canvas.addEventListener('touchstart', start, {passive:false});
+canvas.addEventListener('touchmove', move, {passive:false});
+canvas.addEventListener('touchend', end);
+document.getElementById('sigClear').addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasDrawn = false;
+});
+
+document.getElementById('sig_date').valueAsDate = new Date();
+
+// ── Autosave ───────────────────────────────────────────────────────
+const form = document.getElementById('mainForm');
+const saveTag = document.getElementById('saveTag');
+let saveTimer;
+
+function snapshot() {
+  const data = {};
+  new FormData(form).forEach((v, k) => { data[k] = v; });
+  ['consent1', 'consent2'].forEach(id => { data[id] = document.getElementById(id).checked; });
+  docs.forEach(doc => {
+    const cb = form.querySelector(`input[name="${doc.key}"]`);
+    data[doc.key] = !!(cb && cb.checked && !cb.disabled);
+  });
+  return data;
+}
+function saveLocal() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot()));
+    saveTag.textContent = 'Auto-saved · ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  } catch (e) {}
+}
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    Object.keys(data).forEach(k => {
+      const el = form.elements[k];
+      if (!el) return;
+      if (el.type === 'radio' || (el.length && el[0] && el[0].type === 'radio')) {
+        const radios = form.querySelectorAll(`[name="${k}"]`);
+        radios.forEach(r => { if (r.value === data[k]) { r.checked = true; r.dispatchEvent(new Event('change', {bubbles:true})); } });
+      } else if (el.type === 'checkbox') {
+        el.checked = !!data[k];
+      } else {
+        el.value = data[k];
+      }
+    });
+    refreshDocChecklistConditionals();
+  } catch (e) {}
+}
+form.addEventListener('input',  () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveLocal, 500); });
+form.addEventListener('change', () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveLocal, 200); });
+loadLocal();
+
+// ── Validate ───────────────────────────────────────────────────────
+const REQUIRED = [
+  ['full_name',           'Full legal name'],
+  ['dob',                 'Date of birth'],
+  ['country_birth',       'Country of birth'],
+  ['citizenship',         'Country of citizenship'],
+  ['phone',               'Phone number'],
+  ['email',               'Email address'],
+  ['address_street',      'Street address'],
+  ['address_city',        'City'],
+  ['address_province',    'Province'],
+  ['postal_code',         'Postal code'],
+  ['marital_status',      'Marital status'],
+  ['current_status',      'Current status in Canada'],
+  ['status_to',           'Status valid-until date'],
+  ['original_entry_date', 'Original entry date'],
+  ['original_entry_place','Original entry place'],
+  ['highest_education',   'Highest level of education'],
+  ['sig_name',            'Typed signature (full name)'],
+  ['sig_date',            'Signature date']
+];
+
+const errToast = document.getElementById('errToast');
+function showError(msg) {
+  errToast.textContent = msg;
+  errToast.classList.add('show');
+  setTimeout(() => errToast.classList.remove('show'), 5000);
+}
+
+function validate() {
+  for (const [name, label] of REQUIRED) {
+    const el = form.elements[name];
+    if (!el || !String(el.value || '').trim()) {
+      el && el.focus();
+      el && el.scrollIntoView({behavior:'smooth', block:'center'});
+      showError('Missing: ' + label);
+      return false;
+    }
+  }
+  // Email format
+  const email = form.elements['email'].value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showError('Email address looks invalid.');
+    form.elements['email'].focus();
+    return false;
+  }
+  // status_expired must be answered
+  if (!form.querySelector('input[name="status_expired"]:checked')) {
+    showError('Please answer: has your status already expired?');
+    document.getElementById('status_expired_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+    return false;
+  }
+  // inviter_present must be answered
+  if (!form.querySelector('input[name="inviter_present"]:checked')) {
+    showError('Please answer: do you have an inviter?');
+    document.getElementById('inviter_present_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+    return false;
+  }
+  // has_work_experience must be answered
+  if (!form.querySelector('input[name="has_work_experience"]:checked')) {
+    showError('Please answer: did you work in the last 10 years?');
+    document.getElementById('has_work_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+    return false;
+  }
+  // Admissibility — every Q must be answered, "Yes" needs detail
+  for (let i = 0; i < aqQuestions.length; i++) {
+    const k = aqQuestions[i][0];
+    const checked = form.querySelector('input[name="aq_' + k + '"]:checked');
+    if (!checked) {
+      showError('Admissibility Q' + (i + 1) + ' needs a Yes or No answer.');
+      const yn = document.getElementById('aq_' + k + '_y');
+      yn && yn.closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+      return false;
+    }
+    if (checked.value === 'Yes') {
+      const detail = form.elements['aq_' + k + '_detail'];
+      if (!detail || !detail.value.trim()) {
+        showError('Q' + (i + 1) + ' answered "Yes" — please add details.');
+        detail && detail.focus();
+        detail && detail.scrollIntoView({behavior:'smooth', block:'center'});
+        return false;
+      }
+    }
+  }
+  // Consent
+  if (!document.getElementById('consent1').checked || !document.getElementById('consent2').checked) {
+    showError('Please tick both authorization boxes at the bottom.');
+    document.getElementById('consent1').scrollIntoView({behavior:'smooth', block:'center'});
+    return false;
+  }
+  return true;
+}
+
+// ── Submit ─────────────────────────────────────────────────────────
+const btn = document.getElementById('submitBtn');
+btn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+
+  btn.disabled = true;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<span class="spin"></span> Submitting…';
+
+  const data = snapshot();
+  data.form_type = 'visitor_record';
+  data.submission_timestamp = new Date().toISOString();
+  data.signature_image = hasDrawn ? canvas.toDataURL('image/png') : '';
+
+  const body = new URLSearchParams();
+  body.append('payload', JSON.stringify(data));
+
+  try {
+    if (APPS_SCRIPT_URL.includes('PASTE_WEB_APP_URL_HERE')) {
+      throw new Error('Form not configured. APPS_SCRIPT_URL is missing.');
+    }
+    const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body });
+    let result = {};
+    try { result = await res.json(); } catch (_) {}
+    if (!res.ok || result.status === 'error') {
+      throw new Error(result.message || ('HTTP ' + res.status));
+    }
+    localStorage.removeItem(STORAGE_KEY);
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+    document.getElementById('submitBar').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+    showError('Submission failed: ' + err.message + '. Email info@jsrimmigration.com if this persists.');
+  }
+});
+</script>
+
+</body>
+</html>
