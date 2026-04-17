@@ -1019,6 +1019,7 @@ btn.addEventListener('click', async (e) => {
   btn.innerHTML = '<span class="spin"></span> Submitting…';
 
   const data = snapshot();
+  data.form_type = 'pgwp';
   data.submission_timestamp = new Date().toISOString();
   data.signature_image = hasDrawn ? canvas.toDataURL('image/png') : '';
 
