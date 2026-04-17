@@ -715,11 +715,11 @@ const eduTpl = (i) => `
       <div class="tag">Institution ${i}</div>
       ${i > 1 ? `<button type="button" class="remove" data-rm-edu="${i}">Remove</button>` : ''}
     </div>
-    <div class="field"><label>Institution name</label><input type="text" name="edu_name_${i}"></div>
+    <div class="field"><label>Institution name<span class="req">*</span></label><input type="text" name="edu_name_${i}" required></div>
     <div class="row-2">
-      <div class="field"><label>Program</label><input type="text" name="edu_program_${i}"></div>
-      <div class="field"><label>Credential</label>
-        <select name="edu_credential_${i}">
+      <div class="field"><label>Program<span class="req">*</span></label><input type="text" name="edu_program_${i}" required></div>
+      <div class="field"><label>Credential<span class="req">*</span></label>
+        <select name="edu_credential_${i}" required>
           <option value="">Select…</option>
           <option>Diploma</option><option>Certificate</option>
           <option>Bachelor</option><option>Master</option>
@@ -729,8 +729,8 @@ const eduTpl = (i) => `
     </div>
     <div class="field"><label>DLI number</label><input type="text" name="edu_dli_${i}" placeholder="O00000000"></div>
     <div class="row-2">
-      <div class="field"><label>Start date</label><input type="date" name="edu_start_${i}"></div>
-      <div class="field"><label>End date</label><input type="date" name="edu_end_${i}"></div>
+      <div class="field"><label>Start date<span class="req">*</span></label><input type="date" name="edu_start_${i}" required></div>
+      <div class="field"><label>End date<span class="req">*</span></label><input type="date" name="edu_end_${i}" required></div>
     </div>
     <div class="row-2">
       <div class="field"><label>Graduation date</label><input type="date" name="edu_grad_${i}"></div>
@@ -958,6 +958,29 @@ function validate() {
     form.elements['email'].focus();
     return false;
   }
+
+  // Education in Canada: require core fields for every listed institution
+  const eduEntries = eduList.querySelectorAll('.entry');
+  for (let i = 0; i < eduEntries.length; i++) {
+    const idx = i + 1;
+    const requiredEdu = [
+      ['edu_name_' + idx, 'Institution name'],
+      ['edu_program_' + idx, 'Program'],
+      ['edu_credential_' + idx, 'Credential'],
+      ['edu_start_' + idx, 'Start date'],
+      ['edu_end_' + idx, 'End date']
+    ];
+    for (const [fieldName, fieldLabel] of requiredEdu) {
+      const field = form.elements[fieldName];
+      if (!field || !String(field.value || '').trim()) {
+        showError('Education ' + idx + ' missing: ' + fieldLabel);
+        field && field.focus();
+        field && field.scrollIntoView({behavior:'smooth', block:'center'});
+        return false;
+      }
+    }
+  }
+
   // Admissibility — every question must have Yes or No, and any "Yes" needs detail
   for (let i = 0; i < aqQuestions.length; i++) {
     const k = aqQuestions[i][0];
