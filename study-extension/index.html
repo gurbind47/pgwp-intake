@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a3a5c">
-<meta name="description" content="JSR Immigration Ltd. — Visitor Record extension intake form. Extend your status as a visitor in Canada.">
-<title>Visitor Record Extension · JSR Immigration Ltd.</title>
+<meta name="description" content="JSR Immigration Ltd. — Study Permit extension intake form. Extend your study permit inside Canada.">
+<title>Study Permit Extension · JSR Immigration Ltd.</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231a3a5c'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='44' fill='%23fff'%3EJSR%3C/text%3E%3C/svg%3E">
 <style>
   *,*::before,*::after { box-sizing: border-box; }
@@ -163,6 +163,21 @@
   }
   .yn input:checked + label { background: var(--navy); color: #fff; box-shadow: var(--shadow-sm); }
 
+  .triple {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 4px; gap: 4px;
+  }
+  .triple input { display: none; }
+  .triple label {
+    text-align: center; padding: 12px 6px; border-radius: 8px;
+    font-weight: 600; font-size: var(--t-sm);
+    cursor: pointer; color: var(--text-muted);
+    min-height: 44px; display: grid; place-items: center;
+    transition: background .15s, color .15s;
+  }
+  .triple input:checked + label { background: var(--navy); color: #fff; box-shadow: var(--shadow-sm); }
+
   .reveal { display: none; margin-top: var(--gap); }
   .reveal.show { display: block; }
   .reveal-detail { display: none; margin-top: var(--gap); }
@@ -277,7 +292,7 @@
   <div class="brand">
     <div class="brand-mark">JSR</div>
     <div class="brand-text">
-      <h1>Visitor Record Extension</h1>
+      <h1>Study Permit Extension</h1>
       <p>JSR Immigration Ltd. · RCIC #R712841</p>
     </div>
   </div>
@@ -288,16 +303,16 @@
 <div id="formWrap">
 
   <div class="intro">
-    <h2>Extend your visitor status</h2>
-    <p>This form takes about 10–15 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Visitor Record extension application.</p>
-    <p style="font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Have your <strong>passport, current/previous status document, and bank statement</strong> ready before you start.</p>
+    <h2>Extend your study permit (inside Canada)</h2>
+    <p>This form takes about 10–15 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Study Permit extension application.</p>
+    <p style="font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Have your <strong>passport, current study permit, Letter of Acceptance / enrolment letter, fee receipts, and bank statement</strong> ready before you start.</p>
   </div>
 
   <div class="fee-box">
     <p style="margin:0 0 6px;"><strong>Estimated cost</strong></p>
     <ul style="margin:0; padding-left: 20px; font-size: 14px;">
-      <li>IRCC fee: <strong>$100</strong> (+ <strong>$246.25 restoration</strong> if your status has already expired)</li>
-      <li>Professional fee (JSR Immigration Ltd.): <strong>$300</strong></li>
+      <li>IRCC fee: <strong>$150</strong> (+ <strong>$85 biometric</strong> if applicable) (+ <strong>$246.25 restoration</strong> if your status has already expired)</li>
+      <li>Professional fee (JSR Immigration Ltd.): <strong>$200</strong></li>
       <li>Payment: e-transfer to <strong>info@jsrimmigration.com</strong></li>
     </ul>
   </div>
@@ -418,6 +433,23 @@
           <input id="date_of_separation" name="date_of_separation" type="date">
         </div>
       </div>
+
+      <div class="field" style="margin-top:14px;">
+        <label class="group-label">Have you previously been married?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="previously_married_y" name="previously_married" value="Yes" required>
+          <label for="previously_married_y">Yes</label>
+          <input type="radio" id="previously_married_n" name="previously_married" value="No" required>
+          <label for="previously_married_n">No</label>
+        </div>
+      </div>
+
+      <div class="reveal-detail" id="previousSpouseReveal">
+        <div class="field">
+          <label for="previous_spouse">Previous spouse name (Last, First)</label>
+          <input id="previous_spouse" name="previous_spouse" type="text">
+        </div>
+      </div>
     </section>
 
     <!-- ─── 4 STATUS & RESTORATION ────────────────────── -->
@@ -428,11 +460,10 @@
         <label for="current_status">Current status in Canada<span class="req">*</span></label>
         <select id="current_status" name="current_status" required>
           <option value="">Select…</option>
-          <option>Visitor (TRV)</option>
-          <option>Visitor Record</option>
           <option>Study Permit</option>
-          <option>Work Permit</option>
+          <option>Co-op Work Permit</option>
           <option>Implied Status</option>
+          <option>Visitor Record</option>
           <option>Status Expired</option>
           <option>Other</option>
         </select>
@@ -457,73 +488,10 @@
       </div>
     </section>
 
-    <!-- ─── 5 INVITER / FINANCIAL ─────────────────────── -->
+    <!-- ─── 5 ENTRY TO CANADA ─────────────────────────── -->
     <section class="card">
-      <h3><span class="num">5</span>Inviter / financial support</h3>
-      <p class="lead">An inviter (Canadian PR, citizen, or temporary resident) is optional but recommended if you do not have sufficient personal funds.</p>
-
-      <div class="field">
-        <label class="group-label">Do you have an inviter who can support your application?<span class="req">*</span></label>
-        <div class="yn">
-          <input type="radio" id="inviter_present_y" name="inviter_present" value="Yes" required>
-          <label for="inviter_present_y">Yes</label>
-          <input type="radio" id="inviter_present_n" name="inviter_present" value="No" required>
-          <label for="inviter_present_n">No</label>
-        </div>
-      </div>
-
-      <div class="reveal" id="inviterReveal">
-        <div class="decl-box" style="font-size:13px;">
-          <strong>Recommended:</strong> bank balance of <strong>$3,000–$5,000 minimum</strong> in accessible savings.
-        </div>
-
-        <div class="field">
-          <label for="inviter_name">Inviter's full legal name</label>
-          <input id="inviter_name" name="inviter_name" type="text">
-        </div>
-        <div class="field">
-          <label for="inviter_address">Inviter's complete address</label>
-          <textarea id="inviter_address" name="inviter_address" rows="2" placeholder="Street, city, province, postal code"></textarea>
-        </div>
-        <div class="row-2">
-          <div class="field">
-            <label for="inviter_email">Inviter's email</label>
-            <input id="inviter_email" name="inviter_email" type="email">
-          </div>
-          <div class="field">
-            <label for="inviter_phone">Inviter's phone</label>
-            <input id="inviter_phone" name="inviter_phone" type="tel">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="group-label">Is the inviter currently employed?</label>
-          <div class="yn">
-            <input type="radio" id="inviter_employed_y" name="inviter_employed" value="Yes">
-            <label for="inviter_employed_y">Yes</label>
-            <input type="radio" id="inviter_employed_n" name="inviter_employed" value="No">
-            <label for="inviter_employed_n">No</label>
-          </div>
-        </div>
-
-        <div class="reveal-detail" id="inviterJobReveal">
-          <div class="field">
-            <label for="inviter_job_title">Inviter's job title</label>
-            <input id="inviter_job_title" name="inviter_job_title" type="text">
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="inviter_bank_balance">Inviter's bank balance (CAD, approximate)</label>
-          <input id="inviter_bank_balance" name="inviter_bank_balance" type="number" inputmode="numeric" placeholder="e.g. 5000">
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── 6 ENTRY TO CANADA ─────────────────────────── -->
-    <section class="card">
-      <h3><span class="num">6</span>Entry to Canada</h3>
-      <p class="lead">When you first entered Canada, and your most recent entry if different.</p>
+      <h3><span class="num">5</span>Entry to Canada</h3>
+      <p class="lead">When you first entered Canada, purpose, and your most recent entry if different.</p>
 
       <div class="row-2">
         <div class="field">
@@ -535,6 +503,19 @@
           <input id="original_entry_place" name="original_entry_place" type="text" placeholder="e.g. Toronto Pearson (YYZ)" required>
         </div>
       </div>
+
+      <div class="field">
+        <label class="group-label">Why did you first come to Canada?<span class="req">*</span></label>
+        <div class="triple">
+          <input type="radio" id="entry_purpose_s" name="entry_purpose" value="study" required>
+          <label for="entry_purpose_s">Study</label>
+          <input type="radio" id="entry_purpose_w" name="entry_purpose" value="work" required>
+          <label for="entry_purpose_w">Work</label>
+          <input type="radio" id="entry_purpose_v" name="entry_purpose" value="visitor" required>
+          <label for="entry_purpose_v">Visitor</label>
+        </div>
+      </div>
+
       <div class="row-2">
         <div class="field">
           <label for="recent_entry_date">Most recent entry date</label>
@@ -547,123 +528,161 @@
       </div>
     </section>
 
-    <!-- ─── 7 EDUCATION ──────────────────────────────── -->
+    <!-- ─── 6 CURRENT PROGRAM (being extended) ────────── -->
     <section class="card">
-      <h3><span class="num">7</span>Education</h3>
-      <p class="lead">Highest level of post-secondary education completed.</p>
+      <h3><span class="num">6</span>Current program (being extended)</h3>
+      <p class="lead">The institution, program, and finances for the studies covered by this extension application.</p>
 
       <div class="field">
-        <label for="highest_education">Highest level<span class="req">*</span></label>
-        <select id="highest_education" name="highest_education" required>
-          <option value="">Select…</option>
-          <option>None</option>
-          <option>Grade 12 / High School</option>
-          <option>Diploma / Certificate</option>
-          <option>Bachelor</option>
-          <option>Master</option>
-          <option>PhD</option>
-        </select>
+        <label for="current_institution">Institution name (college / university / school)<span class="req">*</span></label>
+        <input id="current_institution" name="current_institution" type="text" required placeholder="e.g. Seneca Polytechnic">
       </div>
-
-      <div class="field">
-        <label for="program_name">Program name</label>
-        <input id="program_name" name="program_name" type="text" placeholder="e.g. Bachelor of Commerce">
-      </div>
-
-      <div class="field">
-        <label for="school_name">School / college / university</label>
-        <input id="school_name" name="school_name" type="text">
-      </div>
-
-      <div class="field">
-        <label for="school_address">School address</label>
-        <input id="school_address" name="school_address" type="text" placeholder="City, country">
-      </div>
-
       <div class="row-2">
         <div class="field">
-          <label for="edu_start_date">Start date</label>
-          <input id="edu_start_date" name="edu_start_date" type="date">
+          <label for="dli_number">DLI number<span class="req">*</span></label>
+          <input id="dli_number" name="dli_number" type="text" required placeholder="e.g. O19395492322">
         </div>
         <div class="field">
-          <label for="edu_end_date">Finish date</label>
-          <input id="edu_end_date" name="edu_end_date" type="date">
+          <label for="credential">Credential</label>
+          <select id="credential" name="credential">
+            <option value="">Select…</option>
+            <option>Diploma</option>
+            <option>Certificate</option>
+            <option>Bachelor</option>
+            <option>Post-Graduate Diploma</option>
+            <option>Master</option>
+            <option>PhD</option>
+            <option>Language / ESL</option>
+            <option>Other</option>
+          </select>
         </div>
       </div>
+      <div class="field">
+        <label for="current_program">Program name<span class="req">*</span></label>
+        <input id="current_program" name="current_program" type="text" required placeholder="e.g. Diploma in Computer Programming">
+      </div>
+      <div class="field">
+        <label class="group-label">Letter of Acceptance / Enrolment letter received?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="loa_received_y" name="loa_received" value="Yes" required>
+          <label for="loa_received_y">Yes</label>
+          <input type="radio" id="loa_received_n" name="loa_received" value="No" required>
+          <label for="loa_received_n">No</label>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="course_start">Course start date<span class="req">*</span></label>
+          <input id="course_start" name="course_start" type="date" required>
+        </div>
+        <div class="field">
+          <label for="course_end">Course finish date<span class="req">*</span></label>
+          <input id="course_end" name="course_end" type="date" required>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="tuition_fees">Total tuition fees (CAD)<span class="req">*</span></label>
+          <input id="tuition_fees" name="tuition_fees" type="number" inputmode="numeric" required placeholder="e.g. 17500">
+        </div>
+        <div class="field">
+          <label for="funds_available">Funds currently available (CAD)<span class="req">*</span></label>
+          <input id="funds_available" name="funds_available" type="number" inputmode="numeric" required placeholder="e.g. 20000">
+          <span class="help">Include bank balance, term deposits, and available education funds.</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="who_pays">Who is paying the fees?<span class="req">*</span></label>
+        <select id="who_pays" name="who_pays" required>
+          <option value="">Select…</option>
+          <option>Self</option>
+          <option>Parents</option>
+          <option>Spouse</option>
+          <option>Sibling / Relative</option>
+          <option>Scholarship</option>
+          <option>Employer / Sponsor</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="payer_details">Payer details (name, relationship, occupation)</label>
+        <textarea id="payer_details" name="payer_details" rows="2" placeholder="e.g. Father — Jaswinder Singh, Farmer, India"></textarea>
+      </div>
+    </section>
 
+    <!-- ─── 7 PAST EDUCATION ──────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">7</span>Past education</h3>
+      <p class="lead">Your most recent completed education before the current program.</p>
+
+      <div class="field">
+        <label for="highest_past_education">Highest level completed<span class="req">*</span></label>
+        <select id="highest_past_education" name="highest_past_education" required>
+          <option value="">Select…</option>
+          <option>Grade 12 / High School</option>
+          <option>+12 (non-Canadian equivalent)</option>
+          <option>Diploma / Certificate</option>
+          <option>Bachelor</option>
+          <option>Post-Graduate Diploma</option>
+          <option>Master</option>
+          <option>PhD</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="past_program">Program</label>
+        <input id="past_program" name="past_program" type="text" placeholder="e.g. Bachelor of Commerce">
+      </div>
+      <div class="field">
+        <label for="past_school">School / college / university</label>
+        <input id="past_school" name="past_school" type="text">
+      </div>
+      <div class="field">
+        <label for="past_school_address">School address</label>
+        <input id="past_school_address" name="past_school_address" type="text" placeholder="City, country">
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="past_edu_start">Start date</label>
+          <input id="past_edu_start" name="past_edu_start" type="date">
+        </div>
+        <div class="field">
+          <label for="past_edu_end">End date</label>
+          <input id="past_edu_end" name="past_edu_end" type="date">
+        </div>
+      </div>
       <div class="field">
         <label for="additional_education">Other education / training</label>
         <textarea id="additional_education" name="additional_education" rows="2" placeholder="Optional. List any other diplomas, certificates, courses, with dates."></textarea>
       </div>
     </section>
 
-    <!-- ─── 8 WORK EXPERIENCE ────────────────────────── -->
+    <!-- ─── 8 ADMISSIBILITY ──────────────────────────── -->
     <section class="card">
-      <h3><span class="num">8</span>Work experience</h3>
-      <p class="lead">Last 10 years OR since age 18, whichever is shorter.</p>
-
-      <div class="field">
-        <label class="group-label">Did you work in the last 10 years (or since age 18)?<span class="req">*</span></label>
-        <div class="yn">
-          <input type="radio" id="has_work_y" name="has_work_experience" value="Yes" required>
-          <label for="has_work_y">Yes</label>
-          <input type="radio" id="has_work_n" name="has_work_experience" value="No" required>
-          <label for="has_work_n">No</label>
-        </div>
-      </div>
-
-      <div class="reveal" id="workReveal">
-        <div class="field">
-          <label for="occupation">Occupation / job title</label>
-          <input id="occupation" name="occupation" type="text">
-        </div>
-        <div class="field">
-          <label for="company">Company name</label>
-          <input id="company" name="company" type="text">
-        </div>
-        <div class="field">
-          <label for="work_address">Workplace address</label>
-          <input id="work_address" name="work_address" type="text" placeholder="City, country">
-        </div>
-        <div class="row-2">
-          <div class="field">
-            <label for="work_start">Start date</label>
-            <input id="work_start" name="work_start" type="date">
-          </div>
-          <div class="field">
-            <label for="work_end">End date</label>
-            <input id="work_end" name="work_end" type="date">
-            <span class="help">Use today's date if still working.</span>
-          </div>
-        </div>
-        <div class="field">
-          <label for="additional_jobs">Other jobs (if any)</label>
-          <textarea id="additional_jobs" name="additional_jobs" rows="3" placeholder="List each: company, role, start date – end date."></textarea>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── 9 ADMISSIBILITY ──────────────────────────── -->
-    <section class="card">
-      <h3><span class="num">9</span>Admissibility &amp; status history</h3>
-      <p class="lead">All questions are required. Answer truthfully — providing false information may result in a 5-year bar from Canada.</p>
+      <h3><span class="num">8</span>Admissibility &amp; status history</h3>
+      <p class="lead">All questions are required. Answer truthfully — providing false information may result in a 5-year bar from Canada (IRPA s. 40 — misrepresentation).</p>
       <div id="aqWrap"></div>
+
+      <div class="field" style="margin-top:10px;">
+        <label for="explain_yes">If you answered "Yes" to any of the above, explain in detail:</label>
+        <textarea id="explain_yes" name="explain_yes" rows="3" placeholder="Dates, countries, visa type, outcome — anything helpful."></textarea>
+      </div>
     </section>
 
-    <!-- ─── 10 DOCUMENT CHECKLIST ────────────────────── -->
+    <!-- ─── 9 DOCUMENT CHECKLIST ────────────────────── -->
     <section class="card">
-      <h3><span class="num">10</span>Document checklist</h3>
+      <h3><span class="num">9</span>Document checklist</h3>
       <p class="lead">Confirm you have or will provide each document below.</p>
       <div id="docWrap"></div>
     </section>
 
-    <!-- ─── 11 DECLARATION ───────────────────────────── -->
+    <!-- ─── 10 DECLARATION ───────────────────────────── -->
     <section class="card">
-      <h3><span class="num">11</span>Declaration &amp; signature</h3>
+      <h3><span class="num">10</span>Declaration &amp; signature</h3>
 
       <div class="decl-box">
-        <p><strong>Declaration of accuracy.</strong> I declare that the information provided in this form is true, complete, and accurate to the best of my knowledge. I understand that providing false or misleading information constitutes misrepresentation under section 40 of the <em>Immigration and Refugee Protection Act</em> (IRPA), which may result in a finding of inadmissibility.</p>
-        <p><strong>Authorization.</strong> I authorize JSR Immigration Ltd. and its licensed representatives (RCIC #R712841) to use the information in this form to prepare and submit my Visitor Record extension application and to communicate with IRCC on my behalf.</p>
+        <p><strong>Declaration of accuracy.</strong> I declare that the information provided in this form is true, complete, and accurate to the best of my knowledge. I understand that providing false or misleading information constitutes misrepresentation under section 40 of the <em>Immigration and Refugee Protection Act</em> (IRPA), which may result in a finding of inadmissibility and a 5-year bar.</p>
+        <p><strong>Authorization.</strong> I authorize JSR Immigration Ltd. and its licensed representatives (RCIC #R712841) to use the information in this form to prepare and submit my Study Permit extension application and to communicate with IRCC on my behalf.</p>
       </div>
 
       <label class="check">
@@ -708,7 +727,7 @@
     </svg>
   </div>
   <h2>Form received</h2>
-  <p>Your Visitor Record extension intake has been securely submitted.</p>
+  <p>Your Study Permit extension intake has been securely submitted.</p>
   <p>A consultant will review and contact you within 1–2 business days.</p>
   <div class="biz">
     <div style="font-size:11px; color:var(--text-muted);">RCIC #R712841</div>
@@ -735,15 +754,23 @@
 
 <script>
 // ════════════════════════════════════════════════════════════════════
-// CONFIG — same web app URL as PGWP form (one Apps Script handles both)
+// CONFIG — same web app URL as PGWP + Visitor forms (one Apps Script handles all)
 // ════════════════════════════════════════════════════════════════════
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby18tjEcOuAMoMJms9xTeyTgA6FBFh_085w11ayLH_ioDo0ZY5NafW7iZmhOIuNZE7Seg/exec';
-const STORAGE_KEY = 'visitor_record_intake_v1';
+const STORAGE_KEY = 'study_extension_intake_v1';
 
 // ── Conditional reveals ─────────────────────────────────────────────
 const partnerReveal = document.getElementById('partnerReveal');
 document.getElementById('marital_status').addEventListener('change', e => {
   partnerReveal.classList.toggle('show', e.target.value && e.target.value !== 'Single');
+  refreshDocChecklistConditionals();
+});
+
+const previousSpouseReveal = document.getElementById('previousSpouseReveal');
+document.querySelectorAll('input[name="previously_married"]').forEach(r => {
+  r.addEventListener('change', e => {
+    previousSpouseReveal.classList.toggle('show', e.target.value === 'Yes');
+  });
 });
 
 const restorationInfo = document.getElementById('restorationInfo');
@@ -753,43 +780,18 @@ document.querySelectorAll('input[name="status_expired"]').forEach(r => {
   });
 });
 
-const inviterReveal = document.getElementById('inviterReveal');
-document.querySelectorAll('input[name="inviter_present"]').forEach(r => {
-  r.addEventListener('change', e => {
-    inviterReveal.classList.toggle('show', e.target.value === 'Yes');
-    refreshDocChecklistConditionals();
-  });
-});
-
-const inviterJobReveal = document.getElementById('inviterJobReveal');
-document.querySelectorAll('input[name="inviter_employed"]').forEach(r => {
-  r.addEventListener('change', e => {
-    inviterJobReveal.classList.toggle('show', e.target.value === 'Yes');
-  });
-});
-
-const workReveal = document.getElementById('workReveal');
-document.querySelectorAll('input[name="has_work_experience"]').forEach(r => {
-  r.addEventListener('change', e => {
-    workReveal.classList.toggle('show', e.target.value === 'Yes');
-  });
-});
-
-document.getElementById('marital_status').addEventListener('change', refreshDocChecklistConditionals);
-
-// ── Admissibility questions (6 for visitor record) ─────────────────
+// ── Admissibility questions (6 for study extension) ────────────────
 const aqQuestions = [
-  ['criminal',   'Have you ever been convicted of, or are you currently charged with, any criminal offence in any country?'],
-  ['refusal',    'Have you ever been refused a visa or permit, or denied entry to Canada or any other country?'],
-  ['removal',    'Have you ever been ordered to leave or been removed from Canada or any other country?'],
-  ['overstay',   'Have you ever overstayed your visa or failed to comply with the conditions of your stay in Canada or any other country?'],
-  ['medical',    'Have you been diagnosed with TB or any other serious medical condition in the past two years?'],
-  ['cdn_status', 'Do you currently hold, or have you previously held, valid Canadian status (visitor visa, study permit, work permit, etc.)?']
+  ['prior_applied', 'Have you applied to come to Canada before for study, work, or visit? (If you are in Canada, your current permit counts.)'],
+  ['refusal',       'Have you ever been refused a visa or permit by ANY country (including Canada)?'],
+  ['criminal',      'Have you ever committed, been arrested for, been charged with, or been convicted of any criminal offence in any country?'],
+  ['political',     'Have you been a member of any political party, trade-union, or political association?'],
+  ['military',      'Have you ever served in the Army / Military of any country?'],
+  ['medical',       'Do you have any medical issue, including TB or other serious condition in the past two years?']
 ];
 const aqWrap = document.getElementById('aqWrap');
 aqQuestions.forEach((q, idx) => {
   const [k, text] = q;
-  const isQ33 = (k === 'cdn_status');
   aqWrap.insertAdjacentHTML('beforeend', `
     <div class="field" style="margin-bottom:18px;">
       <label class="group-label" style="font-size:14px;">${idx+1}. ${text}<span class="req">*</span></label>
@@ -802,55 +804,39 @@ aqQuestions.forEach((q, idx) => {
       <div class="reveal-detail" id="aq_${k}_d">
         <textarea name="aq_${k}_detail" placeholder="Please provide details…" rows="2"></textarea>
       </div>
-      ${isQ33 ? '<div class="warn-box" id="q33Warn"><strong>Heads up.</strong> A Visitor Record extension requires that you currently hold or previously held valid Canadian status. If this does not apply to you, please contact JSR before submitting — you may need a different application type.</div>' : ''}
     </div>`);
 });
 aqWrap.addEventListener('change', e => {
   if (!e.target.name || !e.target.name.startsWith('aq_')) return;
   const k = e.target.name.replace('aq_', '');
-  // For most questions: show details textarea on "Yes". For Q33: show details on "Yes" AND show warning on "No".
-  if (k === 'cdn_status') {
-    const detail = document.getElementById('aq_cdn_status_d');
-    const warn   = document.getElementById('q33Warn');
-    detail && detail.classList.toggle('show', e.target.value === 'Yes');
-    warn   && warn.classList.toggle('show', e.target.value === 'No');
-  } else {
-    const detail = document.getElementById('aq_' + k + '_d');
-    detail && detail.classList.toggle('show', e.target.value === 'Yes');
-  }
+  const detail = document.getElementById('aq_' + k + '_d');
+  detail && detail.classList.toggle('show', e.target.value === 'Yes');
 });
 
 // ── Document checklist ─────────────────────────────────────────────
 const docs = [
-  { key:'doc_financial', label:'Proof of financial support (bank statements, $5,000–$10,000 minimum recommended)' },
-  { key:'doc_passport',  label:'Passport (with all entry/exit stamps and visa pages)' },
-  { key:'doc_status',    label:'Current or previous Canadian status document (study permit, work permit, visitor record, etc.)' },
-  { key:'doc_photo',     label:'Digital passport-style photo' },
-  { key:'doc_edu_emp',   label:'Education / employment documents (transcripts, LOA, job letter, recent pay stubs)' },
-  { key:'doc_inviter',   label:"Inviter's supporting documents (passport, ID, financial documents)", requiresInviter: true },
-  { key:'doc_medical',   label:'Medical examination (optional but recommended)' },
-  { key:'doc_marriage',  label:'Marriage certificate', requiresMarried: true }
+  { key:'doc_passport',       label:'Passport (biodata + visa pages + all entry/exit stamps)' },
+  { key:'doc_current_status', label:'Current Canadian immigration documents (study permit / co-op permit / visitor record)' },
+  { key:'doc_marriage',       label:'Marriage licence or certificate / copy of spouse passport', requiresMarried: true },
+  { key:'doc_loa',            label:'Letter of Acceptance (LOA) / Enrolment letter from the college or university' },
+  { key:'doc_parents',        label:'Parents\u2019 study/work permit/passport/job letter/LMIA (required if applying for a minor SP)' },
+  { key:'doc_transcripts',    label:'Proof of academic standing: recent transcripts (if available)' },
+  { key:'doc_funds',          label:'Proof of funds — fee receipts, bank statements, or bank portfolio' },
+  { key:'doc_photo',          label:'Passport-size digital photo' },
+  { key:'doc_medical',        label:'Medical examination (if done within the past 12 months)' }
 ];
 const docWrap = document.getElementById('docWrap');
 docs.forEach(doc => {
   docWrap.insertAdjacentHTML('beforeend',
-    `<label class="check" data-key="${doc.key}"${doc.requiresInviter ? ' data-requires-inviter="1"' : ''}${doc.requiresMarried ? ' data-requires-married="1"' : ''}>
+    `<label class="check" data-key="${doc.key}"${doc.requiresMarried ? ' data-requires-married="1"' : ''}>
       <input type="checkbox" name="${doc.key}" value="1">
       <span>${doc.label}</span>
     </label>`);
 });
 
 function refreshDocChecklistConditionals() {
-  const inviterYes = document.querySelector('input[name="inviter_present"]:checked');
-  const married    = document.getElementById('marital_status').value;
-  const inviterOn  = inviterYes && inviterYes.value === 'Yes';
-  const marriedOn  = (married === 'Married' || married === 'Common-Law');
-  document.querySelectorAll('.check[data-requires-inviter]').forEach(el => {
-    el.classList.toggle('disabled', !inviterOn);
-    const cb = el.querySelector('input');
-    if (cb) cb.disabled = !inviterOn;
-    if (!inviterOn && cb) cb.checked = false;
-  });
+  const married = document.getElementById('marital_status').value;
+  const marriedOn = (married === 'Married' || married === 'Common-Law');
   document.querySelectorAll('.check[data-requires-married]').forEach(el => {
     el.classList.toggle('disabled', !marriedOn);
     const cb = el.querySelector('input');
@@ -950,24 +936,32 @@ loadLocal();
 
 // ── Validate ───────────────────────────────────────────────────────
 const REQUIRED = [
-  ['full_name',           'Full legal name'],
-  ['dob',                 'Date of birth'],
-  ['country_birth',       'Country of birth'],
-  ['citizenship',         'Country of citizenship'],
-  ['phone',               'Phone number'],
-  ['email',               'Email address'],
-  ['address_street',      'Street address'],
-  ['address_city',        'City'],
-  ['address_province',    'Province'],
-  ['postal_code',         'Postal code'],
-  ['marital_status',      'Marital status'],
-  ['current_status',      'Current status in Canada'],
-  ['status_to',           'Status valid-until date'],
-  ['original_entry_date', 'Original entry date'],
-  ['original_entry_place','Original entry place'],
-  ['highest_education',   'Highest level of education'],
-  ['sig_name',            'Typed signature (full name)'],
-  ['sig_date',            'Signature date']
+  ['full_name',             'Full legal name'],
+  ['dob',                   'Date of birth'],
+  ['country_birth',         'Country of birth'],
+  ['citizenship',           'Country of citizenship'],
+  ['phone',                 'Phone number'],
+  ['email',                 'Email address'],
+  ['address_street',        'Street address'],
+  ['address_city',          'City'],
+  ['address_province',      'Province'],
+  ['postal_code',           'Postal code'],
+  ['marital_status',        'Marital status'],
+  ['current_status',        'Current status in Canada'],
+  ['status_to',             'Status valid-until date'],
+  ['original_entry_date',   'Original entry date'],
+  ['original_entry_place',  'Original entry place'],
+  ['current_institution',   'Institution name'],
+  ['dli_number',            'DLI number'],
+  ['current_program',       'Program name'],
+  ['course_start',          'Course start date'],
+  ['course_end',            'Course finish date'],
+  ['tuition_fees',          'Tuition fees'],
+  ['funds_available',       'Funds available'],
+  ['who_pays',              'Who pays the fees'],
+  ['highest_past_education','Highest past education'],
+  ['sig_name',              'Typed signature (full name)'],
+  ['sig_date',              'Signature date']
 ];
 
 const errToast = document.getElementById('errToast');
@@ -994,22 +988,28 @@ function validate() {
     form.elements['email'].focus();
     return false;
   }
-  // status_expired must be answered
+  // previously_married
+  if (!form.querySelector('input[name="previously_married"]:checked')) {
+    showError('Please answer: have you previously been married?');
+    document.getElementById('previously_married_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+    return false;
+  }
+  // status_expired
   if (!form.querySelector('input[name="status_expired"]:checked')) {
     showError('Please answer: has your status already expired?');
     document.getElementById('status_expired_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
     return false;
   }
-  // inviter_present must be answered
-  if (!form.querySelector('input[name="inviter_present"]:checked')) {
-    showError('Please answer: do you have an inviter?');
-    document.getElementById('inviter_present_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+  // entry_purpose
+  if (!form.querySelector('input[name="entry_purpose"]:checked')) {
+    showError('Please select why you first came to Canada.');
+    document.getElementById('entry_purpose_s').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
     return false;
   }
-  // has_work_experience must be answered
-  if (!form.querySelector('input[name="has_work_experience"]:checked')) {
-    showError('Please answer: did you work in the last 10 years?');
-    document.getElementById('has_work_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+  // loa_received
+  if (!form.querySelector('input[name="loa_received"]:checked')) {
+    showError('Please answer: have you received your LOA / enrolment letter?');
+    document.getElementById('loa_received_y').closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
     return false;
   }
   // Admissibility — every Q must be answered, "Yes" needs detail
@@ -1052,7 +1052,7 @@ btn.addEventListener('click', async (e) => {
   btn.innerHTML = '<span class="spin"></span> Submitting…';
 
   const data = snapshot();
-  data.form_type = 'visitor_record';
+  data.form_type = 'study_extension';
   data.submission_timestamp = new Date().toISOString();
   data.signature_image = hasDrawn ? canvas.toDataURL('image/png') : '';
 
