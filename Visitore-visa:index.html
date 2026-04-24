@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1a3a5c">
+<meta name="description" content="JSR Immigration Ltd. — Visitor Visa (TRV) intake form. Apply for a Canadian visitor visa or Super Visa from outside Canada.">
+<title>Visitor Visa (TRV) · JSR Immigration Ltd.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231a3a5c'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='44' fill='%23fff'%3EJSR%3C/text%3E%3C/svg%3E">
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  :root {
+    --navy: #1a3a5c;
+    --navy-dark: #122a44;
+    --gold: #c9a76b;
+    --bg: #f5f6f8;
+    --card: #ffffff;
+    --text: #15202b;
+    --text-muted: #5b6b7d;
+    --border: #d9dee5;
+    --border-strong: #b8c2cf;
+    --error: #c0392b;
+    --error-bg: #fde8e6;
+    --success: #1f8a4c;
+    --warn-bg: #fff3cd;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow-sm: 0 1px 2px rgba(15,30,50,0.06);
+    --shadow-md: 0 4px 14px rgba(15,30,50,0.10);
+    --tap: 52px;
+    --gap: 14px;
+    --pad: 18px;
+    --t-hd: 22px;
+    --t-md: 17px;
+    --t-sm: 15px;
+    --t-xs: 13px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1722;
+      --card: #1a2433;
+      --text: #e8edf3;
+      --text-muted: #97a4b3;
+      --border: #2c3a4d;
+      --border-strong: #3d4d63;
+      --error-bg: #3a1c19;
+      --warn-bg: #3a3018;
+    }
+  }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font: 400 var(--t-md)/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 88px);
+  }
+  header.app-header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--navy); color: #fff;
+    padding: 14px var(--pad) 14px;
+    padding-top: calc(env(safe-area-inset-top) + 14px);
+    box-shadow: var(--shadow-md);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 38px; height: 38px;
+    background: var(--card); color: var(--navy);
+    border-radius: 9px;
+    display: grid; place-items: center;
+    font-family: Georgia, serif; font-weight: 700; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .brand-text h1 { margin: 0; font-size: var(--t-md); font-weight: 600; line-height: 1.2; }
+  .brand-text p  { margin: 2px 0 0; font-size: var(--t-xs); color: rgba(255,255,255,0.78); }
+
+  main { max-width: 720px; margin: 0 auto; padding: var(--pad); }
+  .intro {
+    background: var(--card); border-radius: var(--radius);
+    padding: 18px; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border); margin-bottom: 20px;
+  }
+  .intro h2 { margin: 0 0 6px; font-size: var(--t-hd); font-weight: 700; letter-spacing: -0.01em; }
+  .intro p  { margin: 0; color: var(--text-muted); font-size: var(--t-sm); }
+  .intro p + p { margin-top: 10px; }
+
+  section.card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 18px; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border); margin-bottom: 18px;
+  }
+  section.card > h3 {
+    margin: 0 0 4px; font-size: var(--t-md); font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+  }
+  section.card > h3 .num {
+    width: 26px; height: 26px;
+    background: var(--navy); color: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  section.card > .lead {
+    margin: 0 0 16px; color: var(--text-muted);
+    font-size: var(--t-xs); padding-left: 36px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: var(--gap); }
+  .field label, .group-label {
+    font-size: var(--t-xs); font-weight: 600; color: var(--text); letter-spacing: 0.02em;
+  }
+  .field label .req { color: var(--error); margin-left: 2px; }
+  .field .help { font-size: 12px; color: var(--text-muted); }
+
+  input[type="text"], input[type="email"], input[type="tel"],
+  input[type="date"], input[type="number"], input[type="url"],
+  select, textarea {
+    width: 100%; min-height: var(--tap);
+    padding: 12px 14px; background: var(--card); color: var(--text);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font: inherit;
+    -webkit-appearance: none; appearance: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235b6b7d' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(26,58,92,0.18);
+  }
+  input:invalid:not(:placeholder-shown) { border-color: var(--error); }
+
+  .row-2 { display: grid; grid-template-columns: 1fr; gap: var(--gap); }
+  @media (min-width: 560px) {
+    .row-2 { grid-template-columns: 1fr 1fr; }
+    .row-2 > .field { margin-bottom: 0; }
+  }
+
+  .yn {
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 4px; gap: 4px;
+  }
+  .yn input { display: none; }
+  .yn label {
+    text-align: center; padding: 12px; border-radius: 8px;
+    font-weight: 600; font-size: var(--t-sm);
+    cursor: pointer; color: var(--text-muted);
+    min-height: 44px; display: grid; place-items: center;
+    transition: background .15s, color .15s;
+  }
+  .yn input:checked + label { background: var(--navy); color: #fff; box-shadow: var(--shadow-sm); }
+
+  .reveal { display: none; margin-top: var(--gap); }
+  .reveal.show { display: block; }
+  .reveal-detail { display: none; margin-top: var(--gap); }
+  .reveal-detail.show { display: block; }
+
+  .check {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); background: var(--bg);
+    margin-bottom: 10px; cursor: pointer;
+  }
+  .check.disabled { opacity: 0.45; cursor: not-allowed; }
+  .check input { width: 22px; height: 22px; margin: 0; flex-shrink: 0; accent-color: var(--navy); }
+  .check span { font-size: var(--t-sm); line-height: 1.45; }
+
+  .decl-box {
+    background: rgba(26,58,92,0.05);
+    border-left: 3px solid var(--navy);
+    padding: 14px; border-radius: var(--radius-sm);
+    margin-bottom: 16px; font-size: var(--t-sm);
+  }
+  .decl-box p { margin: 0 0 8px; }
+  .decl-box p:last-child { margin: 0; }
+
+  .super-box {
+    background: rgba(201,167,107,0.12);
+    border-left: 4px solid var(--gold);
+    padding: 14px 16px; border-radius: var(--radius-sm);
+    margin-top: var(--gap); font-size: var(--t-sm);
+    display: none;
+  }
+  .super-box.show { display: block; }
+  .super-box strong { color: var(--navy); }
+  @media (prefers-color-scheme: dark) { .super-box strong { color: var(--gold); } }
+
+  .warn-box {
+    background: var(--error-bg);
+    border-left: 3px solid var(--error);
+    padding: 14px; border-radius: var(--radius-sm);
+    margin-top: var(--gap); font-size: var(--t-sm);
+    display: none;
+  }
+  .warn-box.show { display: block; }
+
+  .info-box {
+    background: rgba(31,138,76,0.08);
+    border-left: 3px solid var(--success);
+    padding: 12px 14px; border-radius: var(--radius-sm);
+    margin-top: var(--gap); font-size: var(--t-sm);
+  }
+
+  /* Repeater cards */
+  .entry {
+    border: 1.5px dashed var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 14px; margin-bottom: 12px;
+    position: relative;
+    background: var(--bg);
+  }
+  .entry .tag {
+    position: absolute; top: -10px; left: 14px;
+    background: var(--navy); color: #fff;
+    font-size: 11px; font-weight: 700;
+    padding: 2px 10px; border-radius: 999px;
+  }
+  .entry .remove {
+    position: absolute; top: 8px; right: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; font-size: 12px;
+    padding: 4px 10px; cursor: pointer; color: var(--error);
+  }
+  .add-more {
+    width: 100%; min-height: 44px;
+    border: 1.5px dashed var(--navy); border-radius: var(--radius-sm);
+    background: transparent; color: var(--navy);
+    font-weight: 600; font-size: var(--t-sm);
+    cursor: pointer; padding: 10px;
+  }
+  .add-more:hover { background: rgba(26,58,92,0.05); }
+
+  .sigwrap {
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: #fff; overflow: hidden; position: relative;
+  }
+  .sigwrap canvas { display: block; width: 100%; height: 160px; touch-action: none; }
+  .sigwrap .clear {
+    position: absolute; top: 8px; right: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; font-size: 12px;
+    padding: 4px 10px; cursor: pointer; color: var(--text-muted);
+  }
+  .sighint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+  .submit-bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 12px var(--pad) calc(env(safe-area-inset-bottom) + 12px);
+    box-shadow: 0 -4px 14px rgba(15,30,50,0.08); z-index: 40;
+  }
+  .submit-bar .inner {
+    max-width: 720px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .save-tag { font-size: 11px; color: var(--text-muted); flex: 1; line-height: 1.3; }
+  .btn-submit {
+    flex-shrink: 0; min-height: var(--tap);
+    padding: 14px 22px; background: var(--navy); color: #fff;
+    border: 0; border-radius: var(--radius-sm);
+    font: 600 var(--t-md)/1 inherit; cursor: pointer;
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-submit .spin {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff; border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .success { display: none; text-align: center; padding: 40px 24px; }
+  .success.show { display: block; }
+  .success .check-circle {
+    width: 80px; height: 80px; background: var(--success);
+    border-radius: 50%; display: grid; place-items: center;
+    margin: 0 auto 20px; color: #fff;
+  }
+  .success h2 { margin: 0 0 8px; font-size: var(--t-hd); }
+  .success p { margin: 0 0 8px; color: var(--text-muted); }
+  .success .biz { margin-top: 28px; padding: 18px; background: var(--warn-bg); border-radius: var(--radius-sm); font-size: var(--t-sm); }
+
+  .err-toast {
+    position: fixed; left: 12px; right: 12px;
+    bottom: calc(env(safe-area-inset-bottom) + 88px);
+    background: var(--error); color: #fff;
+    padding: 14px 18px; border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md); font-size: var(--t-sm);
+    z-index: 60; transform: translateY(150%); transition: transform .25s;
+    max-width: 696px; margin: 0 auto;
+  }
+  .err-toast.show { transform: translateY(0); }
+
+  .footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: var(--t-xs); }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="brand-mark">JSR</div>
+    <div class="brand-text">
+      <h1 id="headerTitle">Visitor Visa (TRV)</h1>
+      <p>JSR Immigration Ltd. · RCIC #R712841</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div id="formWrap">
+
+  <div class="intro">
+    <h2 id="introTitle">Apply to visit Canada</h2>
+    <p>This form takes about 15–20 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Canadian visitor visa application.</p>
+    <p style="font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Have your <strong>passport, digital photo, proof of funds, and invitation letter (if applicable)</strong> ready before you start.</p>
+  </div>
+
+  <form id="mainForm" autocomplete="on" novalidate>
+
+    <!-- ─── 1 APPLICATION TYPE ────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">1</span>Application type</h3>
+      <p class="lead">Select the type of visitor visa you are applying for.</p>
+
+      <div class="field">
+        <label class="group-label">Are you applying for a <strong>Super Visa</strong>?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="super_visa_y" name="super_visa" value="Yes" required>
+          <label for="super_visa_y">Yes — Super Visa</label>
+          <input type="radio" id="super_visa_n" name="super_visa" value="No" required>
+          <label for="super_visa_n">No — Standard TRV</label>
+        </div>
+        <div class="super-box" id="superVisaInfo">
+          <strong>Super Visa selected.</strong> Super Visa is for <strong>parents or grandparents</strong> of a Canadian citizen or permanent resident. Valid up to 10 years; single-stay up to 5 years. Requires proof of host meeting the <strong>LICO minimum income</strong> and <strong>$100,000+ medical insurance</strong>.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 2 PERSONAL ────────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">2</span>Personal information</h3>
+      <p class="lead">Exactly as on your passport.</p>
+
+      <div class="field">
+        <label for="full_name">Full legal name<span class="req">*</span></label>
+        <input id="full_name" name="full_name" type="text" required>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="uci">UCI number (if any)</label>
+          <input id="uci" name="uci" type="text" placeholder="From a previous IRCC application">
+        </div>
+        <div class="field">
+          <label for="dob">Date of birth<span class="req">*</span></label>
+          <input id="dob" name="dob" type="date" required>
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="sex">Sex<span class="req">*</span></label>
+          <select id="sex" name="sex" required>
+            <option value="">Select…</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Another gender</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="native_language">Native language<span class="req">*</span></label>
+          <input id="native_language" name="native_language" type="text" placeholder="e.g. Punjabi, Hindi, English" required>
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="country_birth">Country of birth<span class="req">*</span></label>
+          <input id="country_birth" name="country_birth" type="text" required>
+        </div>
+        <div class="field">
+          <label for="city_birth">City of birth<span class="req">*</span></label>
+          <input id="city_birth" name="city_birth" type="text" required>
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="citizenship">Country of citizenship<span class="req">*</span></label>
+          <input id="citizenship" name="citizenship" type="text" required>
+        </div>
+        <div class="field">
+          <label for="country_residence">Country of current residence<span class="req">*</span></label>
+          <input id="country_residence" name="country_residence" type="text" required>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 3 PASSPORT ────────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">3</span>Passport</h3>
+      <p class="lead">Passport must be valid for your entire stay in Canada.</p>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="passport_number">Passport number<span class="req">*</span></label>
+          <input id="passport_number" name="passport_number" type="text" required style="text-transform:uppercase">
+        </div>
+        <div class="field">
+          <label for="passport_country">Country of issue<span class="req">*</span></label>
+          <input id="passport_country" name="passport_country" type="text" required>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="passport_issued">Issue date<span class="req">*</span></label>
+          <input id="passport_issued" name="passport_issued" type="date" required>
+        </div>
+        <div class="field">
+          <label for="passport_expiry">Expiry date<span class="req">*</span></label>
+          <input id="passport_expiry" name="passport_expiry" type="date" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="group-label">Do you hold any other passport (past or current)?</label>
+        <div class="yn">
+          <input type="radio" id="prior_passport_y" name="prior_passport" value="Yes">
+          <label for="prior_passport_y">Yes</label>
+          <input type="radio" id="prior_passport_n" name="prior_passport" value="No">
+          <label for="prior_passport_n">No</label>
+        </div>
+        <div class="reveal-detail" id="priorPassportReveal">
+          <textarea name="prior_passport_detail" rows="2" placeholder="Country, passport number, dates…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 4 CONTACT & ADDRESS ───────────────────────── -->
+    <section class="card">
+      <h3><span class="num">4</span>Contact &amp; home-country address</h3>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="phone">Phone<span class="req">*</span></label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" required>
+        </div>
+        <div class="field">
+          <label for="email">Email<span class="req">*</span></label>
+          <input id="email" name="email" type="email" inputmode="email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="alt_phone">Alternate phone / WhatsApp</label>
+        <input id="alt_phone" name="alt_phone" type="tel" inputmode="tel">
+      </div>
+      <div class="field">
+        <label for="address_street">Street address<span class="req">*</span></label>
+        <input id="address_street" name="address_street" type="text" autocomplete="address-line1" required>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="address_city">City<span class="req">*</span></label>
+          <input id="address_city" name="address_city" type="text" autocomplete="address-level2" required>
+        </div>
+        <div class="field">
+          <label for="address_province">State / Province<span class="req">*</span></label>
+          <input id="address_province" name="address_province" type="text" autocomplete="address-level1" required>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="address_country">Country<span class="req">*</span></label>
+          <input id="address_country" name="address_country" type="text" required>
+        </div>
+        <div class="field">
+          <label for="postal_code">Postal / ZIP code</label>
+          <input id="postal_code" name="postal_code" type="text" autocomplete="postal-code" style="text-transform:uppercase">
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 5 MARITAL ─────────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">5</span>Marital status</h3>
+
+      <div class="field">
+        <label for="marital_status">Status<span class="req">*</span></label>
+        <select id="marital_status" name="marital_status" required>
+          <option value="">Select…</option>
+          <option>Single</option>
+          <option>Married</option>
+          <option>Common-Law</option>
+          <option>Separated</option>
+          <option>Divorced</option>
+          <option>Widowed</option>
+        </select>
+      </div>
+
+      <div class="reveal" id="partnerReveal">
+        <div class="row-2">
+          <div class="field">
+            <label for="partner_first">Partner first name</label>
+            <input id="partner_first" name="partner_first" type="text">
+          </div>
+          <div class="field">
+            <label for="partner_last">Partner last name</label>
+            <input id="partner_last" name="partner_last" type="text">
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="partner_dob">Partner DOB</label>
+            <input id="partner_dob" name="partner_dob" type="date">
+          </div>
+          <div class="field">
+            <label for="date_of_marriage">Date of marriage / relationship</label>
+            <input id="date_of_marriage" name="date_of_marriage" type="date">
+          </div>
+        </div>
+        <div class="field">
+          <label for="date_of_separation">Date of separation / divorce / passing</label>
+          <input id="date_of_separation" name="date_of_separation" type="date">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="group-label">Have you been previously married or in a common-law relationship?</label>
+        <div class="yn">
+          <input type="radio" id="previously_married_y" name="previously_married" value="Yes">
+          <label for="previously_married_y">Yes</label>
+          <input type="radio" id="previously_married_n" name="previously_married" value="No">
+          <label for="previously_married_n">No</label>
+        </div>
+        <div class="reveal-detail" id="prevMarriedReveal">
+          <textarea name="previous_spouse" rows="2" placeholder="Previous partner's name, relationship dates, reason ended…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 6 PURPOSE OF VISIT ───────────────────────── -->
+    <section class="card">
+      <h3><span class="num">6</span>Purpose of visit &amp; trip details</h3>
+      <p class="lead">Why you're coming to Canada and when.</p>
+
+      <div class="field">
+        <label for="visit_purpose">Primary purpose of visit<span class="req">*</span></label>
+        <select id="visit_purpose" name="visit_purpose" required>
+          <option value="">Select…</option>
+          <option>Tourism</option>
+          <option>Family visit</option>
+          <option>Business / Conference</option>
+          <option>Medical treatment</option>
+          <option>Attend event (wedding, funeral, etc.)</option>
+          <option>Transit</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="visit_purpose_detail">Describe your trip<span class="req">*</span></label>
+        <textarea id="visit_purpose_detail" name="visit_purpose_detail" rows="3" placeholder="What you plan to do, who you'll see, activities, reason for this trip now…" required></textarea>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="intended_arrival">Intended arrival date<span class="req">*</span></label>
+          <input id="intended_arrival" name="intended_arrival" type="date" required>
+        </div>
+        <div class="field">
+          <label for="intended_departure">Intended departure date<span class="req">*</span></label>
+          <input id="intended_departure" name="intended_departure" type="date" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cities_to_visit">Cities / provinces you plan to visit<span class="req">*</span></label>
+        <input id="cities_to_visit" name="cities_to_visit" type="text" placeholder="e.g. Toronto, Niagara Falls, Vancouver" required>
+      </div>
+
+      <div class="field">
+        <label class="group-label">Have you visited Canada before?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="prior_canada_y" name="prior_canada" value="Yes" required>
+          <label for="prior_canada_y">Yes</label>
+          <input type="radio" id="prior_canada_n" name="prior_canada" value="No" required>
+          <label for="prior_canada_n">No</label>
+        </div>
+        <div class="reveal-detail" id="priorCanadaReveal">
+          <textarea name="prior_canada_detail" rows="3" placeholder="List previous visits: dates, purpose, length of stay, cities visited…"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 7 HOST / INVITER ──────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">7</span>Canadian host / inviter</h3>
+      <p class="lead">Someone in Canada who is inviting or hosting you. Optional for tourism, normally required for Super Visa.</p>
+
+      <div class="field">
+        <label class="group-label">Do you have a host or inviter in Canada?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="has_host_y" name="has_host" value="Yes" required>
+          <label for="has_host_y">Yes</label>
+          <input type="radio" id="has_host_n" name="has_host" value="No" required>
+          <label for="has_host_n">No</label>
+        </div>
+      </div>
+
+      <div class="reveal" id="hostReveal">
+        <div class="field">
+          <label for="host_name">Host's full legal name</label>
+          <input id="host_name" name="host_name" type="text">
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="host_relationship">Relationship to you</label>
+            <select id="host_relationship" name="host_relationship">
+              <option value="">Select…</option>
+              <option>Son</option>
+              <option>Daughter</option>
+              <option>Grandson</option>
+              <option>Granddaughter</option>
+              <option>Spouse / Partner</option>
+              <option>Parent</option>
+              <option>Sibling</option>
+              <option>Other relative</option>
+              <option>Friend</option>
+              <option>Business contact</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="host_status">Host's status in Canada</label>
+            <select id="host_status" name="host_status">
+              <option value="">Select…</option>
+              <option>Canadian Citizen</option>
+              <option>Permanent Resident</option>
+              <option>Work Permit</option>
+              <option>Study Permit</option>
+              <option>Visitor</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="host_address">Host's complete address in Canada</label>
+          <textarea id="host_address" name="host_address" rows="2" placeholder="Street, city, province, postal code"></textarea>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="host_email">Host's email</label>
+            <input id="host_email" name="host_email" type="email">
+          </div>
+          <div class="field">
+            <label for="host_phone">Host's phone</label>
+            <input id="host_phone" name="host_phone" type="tel">
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="host_occupation">Host's occupation</label>
+            <input id="host_occupation" name="host_occupation" type="text">
+          </div>
+          <div class="field">
+            <label for="host_household_size">People in host's household</label>
+            <input id="host_household_size" name="host_household_size" type="number" inputmode="numeric" min="1" placeholder="e.g. 4">
+          </div>
+        </div>
+        <div class="field">
+          <label for="host_income">Host's annual income (CAD)</label>
+          <input id="host_income" name="host_income" type="number" inputmode="numeric" placeholder="e.g. 65000">
+          <span class="help">For Super Visa, host must meet the LICO minimum for their household size.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 8 FINANCIAL SUPPORT ───────────────────────── -->
+    <section class="card">
+      <h3><span class="num">8</span>Financial support</h3>
+      <p class="lead">Who pays for the trip and proof of funds.</p>
+
+      <div class="field">
+        <label for="who_pays">Who is paying for your trip?<span class="req">*</span></label>
+        <select id="who_pays" name="who_pays" required>
+          <option value="">Select…</option>
+          <option>Self</option>
+          <option>Host / Inviter</option>
+          <option>Spouse / Partner</option>
+          <option>Parents</option>
+          <option>Children</option>
+          <option>Other sponsor</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="payer_details">Payer details (name, occupation, relationship)</label>
+        <textarea id="payer_details" name="payer_details" rows="2" placeholder="If someone else is paying, provide their name, occupation, relationship to you."></textarea>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="applicant_occupation">Your current occupation<span class="req">*</span></label>
+          <input id="applicant_occupation" name="applicant_occupation" type="text" required>
+        </div>
+        <div class="field">
+          <label for="applicant_employer">Employer / business name</label>
+          <input id="applicant_employer" name="applicant_employer" type="text">
+        </div>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="annual_income">Your annual income (local currency)</label>
+          <input id="annual_income" name="annual_income" type="text" placeholder="e.g. ₹12,00,000 or CAD 50,000">
+        </div>
+        <div class="field">
+          <label for="savings_amount">Savings / bank balance (CAD equivalent)<span class="req">*</span></label>
+          <input id="savings_amount" name="savings_amount" type="text" required placeholder="e.g. CAD 8,000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="funds_source">Source of funds<span class="req">*</span></label>
+        <textarea id="funds_source" name="funds_source" rows="2" placeholder="e.g. Salary savings, business income, property rental, gift from parents…" required></textarea>
+      </div>
+    </section>
+
+    <!-- ─── 9 FAMILY TREE ─────────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">9</span>Family members</h3>
+      <p class="lead">Include all immediate family — both those staying in your home country and those living in Canada. Mark any who are accompanying you on this trip.</p>
+
+      <!-- Father -->
+      <div class="entry">
+        <span class="tag">FATHER</span>
+        <div class="row-2">
+          <div class="field">
+            <label for="father_name">Full name</label>
+            <input id="father_name" name="father_name" type="text">
+          </div>
+          <div class="field">
+            <label for="father_dob">Date of birth</label>
+            <input id="father_dob" name="father_dob" type="date">
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="father_country">Country of residence</label>
+            <input id="father_country" name="father_country" type="text">
+          </div>
+          <div class="field">
+            <label for="father_occupation">Occupation</label>
+            <input id="father_occupation" name="father_occupation" type="text" placeholder="Use 'Deceased' if deceased">
+          </div>
+        </div>
+      </div>
+
+      <!-- Mother -->
+      <div class="entry">
+        <span class="tag">MOTHER</span>
+        <div class="row-2">
+          <div class="field">
+            <label for="mother_name">Full name</label>
+            <input id="mother_name" name="mother_name" type="text">
+          </div>
+          <div class="field">
+            <label for="mother_dob">Date of birth</label>
+            <input id="mother_dob" name="mother_dob" type="date">
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="mother_country">Country of residence</label>
+            <input id="mother_country" name="mother_country" type="text">
+          </div>
+          <div class="field">
+            <label for="mother_occupation">Occupation</label>
+            <input id="mother_occupation" name="mother_occupation" type="text" placeholder="Use 'Deceased' if deceased">
+          </div>
+        </div>
+      </div>
+
+      <!-- Children (repeater) -->
+      <div class="field" style="margin-top: 20px;">
+        <label class="group-label">Children</label>
+        <span class="help">Add each child. Leave empty if you have none.</span>
+      </div>
+      <div id="childrenWrap"></div>
+      <button type="button" class="add-more" id="addChildBtn">+ Add a child</button>
+
+      <!-- Siblings (repeater) -->
+      <div class="field" style="margin-top: 20px;">
+        <label class="group-label">Siblings</label>
+        <span class="help">Add brothers and sisters. Leave empty if you have none.</span>
+      </div>
+      <div id="siblingsWrap"></div>
+      <button type="button" class="add-more" id="addSiblingBtn">+ Add a sibling</button>
+
+      <!-- Family in Canada -->
+      <div class="field" style="margin-top: 20px;">
+        <label class="group-label">Do you have any family members currently in Canada?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="family_in_canada_y" name="family_in_canada" value="Yes" required>
+          <label for="family_in_canada_y">Yes</label>
+          <input type="radio" id="family_in_canada_n" name="family_in_canada" value="No" required>
+          <label for="family_in_canada_n">No</label>
+        </div>
+      </div>
+      <div class="reveal" id="familyCanadaReveal">
+        <span class="help" style="display:block;margin-bottom:8px;">List each family member in Canada — their name, relationship, status (citizen / PR / work / study / visitor), and city.</span>
+        <div id="canadaFamilyWrap"></div>
+        <button type="button" class="add-more" id="addCanadaFamilyBtn">+ Add a family member in Canada</button>
+      </div>
+    </section>
+
+    <!-- ─── 10 TRAVEL HISTORY ─────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">10</span>Travel history &amp; refusals</h3>
+      <p class="lead">Past travel in the last 10 years, plus any visa refusal or removal from any country.</p>
+
+      <div class="field">
+        <label class="group-label">Have you travelled outside your home country in the last 10 years?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="has_travel_y" name="has_travel" value="Yes" required>
+          <label for="has_travel_y">Yes</label>
+          <input type="radio" id="has_travel_n" name="has_travel" value="No" required>
+          <label for="has_travel_n">No</label>
+        </div>
+      </div>
+
+      <div class="reveal" id="travelReveal">
+        <span class="help" style="display:block;margin-bottom:8px;">Add each country visited — dates, purpose, length of stay.</span>
+        <div id="travelWrap"></div>
+        <button type="button" class="add-more" id="addTravelBtn">+ Add a trip</button>
+      </div>
+
+      <div class="field" style="margin-top: 20px;">
+        <label class="group-label">Have you ever been refused a visa, permit, or entry to ANY country (including Canada)?<span class="req">*</span></label>
+        <div class="yn">
+          <input type="radio" id="has_refusal_y" name="has_refusal" value="Yes" required>
+          <label for="has_refusal_y">Yes</label>
+          <input type="radio" id="has_refusal_n" name="has_refusal" value="No" required>
+          <label for="has_refusal_n">No</label>
+        </div>
+      </div>
+
+      <div class="reveal" id="refusalReveal">
+        <span class="help" style="display:block;margin-bottom:8px;">For each refusal — country, visa/permit type, date, and reason given.</span>
+        <div id="refusalWrap"></div>
+        <button type="button" class="add-more" id="addRefusalBtn">+ Add a refusal</button>
+      </div>
+    </section>
+
+    <!-- ─── 11 ADMISSIBILITY ─────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">11</span>Admissibility &amp; background</h3>
+      <p class="lead">All questions are required. Answer truthfully — providing false information may result in a 5-year bar from Canada under section 40 of IRPA.</p>
+      <div id="aqWrap"></div>
+    </section>
+
+    <!-- ─── 12 SUPER VISA EXTRAS (conditional) ────────── -->
+    <section class="card" id="superVisaSection" style="display:none;">
+      <h3><span class="num">12</span>Super Visa requirements</h3>
+      <p class="lead">Required for parents/grandparents applying under the Super Visa program.</p>
+
+      <label class="check">
+        <input type="checkbox" id="sv_host_lico" name="sv_host_lico">
+        <span>My host meets the <strong>LICO minimum income</strong> for their household size (I will provide their Notice of Assessment / pay stubs as proof).</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="sv_medical_insurance" name="sv_medical_insurance">
+        <span>I will provide proof of <strong>private Canadian medical insurance</strong> valid for at least one year with minimum $100,000 coverage.</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="sv_invitation_letter" name="sv_invitation_letter">
+        <span>My host will provide a <strong>signed invitation letter</strong> promising financial support and including their household size.</span>
+      </label>
+
+      <div class="field" style="margin-top:14px;">
+        <label for="sv_host_relation">Relationship of host to you<span class="req">*</span></label>
+        <select id="sv_host_relation" name="sv_host_relation">
+          <option value="">Select…</option>
+          <option>Son (Canadian citizen / PR)</option>
+          <option>Daughter (Canadian citizen / PR)</option>
+          <option>Grandson (Canadian citizen / PR)</option>
+          <option>Granddaughter (Canadian citizen / PR)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- ─── 13 DOCUMENT CHECKLIST ───────────────────── -->
+    <section class="card">
+      <h3><span class="num">13</span>Document checklist</h3>
+      <p class="lead">Confirm you have or will provide each document below.</p>
+      <div id="docWrap"></div>
+    </section>
+
+    <!-- ─── 14 DECLARATION ──────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">14</span>Declaration &amp; signature</h3>
+
+      <div class="decl-box">
+        <p><strong>Declaration of accuracy.</strong> I declare that the information provided in this form is true, complete, and accurate to the best of my knowledge. I understand that providing false or misleading information constitutes misrepresentation under section 40 of the <em>Immigration and Refugee Protection Act</em> (IRPA), which may result in a finding of inadmissibility and a 5-year bar from Canada.</p>
+        <p><strong>Authorization.</strong> I authorize JSR Immigration Ltd. and its licensed representatives (RCIC #R712841) to use the information in this form to prepare and submit my visitor visa application and to communicate with IRCC on my behalf.</p>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="consent1" name="consent1" required>
+        <span>I confirm the information above is true, complete, and accurate.</span>
+      </label>
+      <label class="check">
+        <input type="checkbox" id="consent2" name="consent2" required>
+        <span>I authorize JSR Immigration Ltd. to act as my representative.</span>
+      </label>
+
+      <div class="row-2" style="margin-top:14px;">
+        <div class="field">
+          <label for="sig_name">Type your full name<span class="req">*</span></label>
+          <input id="sig_name" name="sig_name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="sig_date">Date<span class="req">*</span></label>
+          <input id="sig_date" name="sig_date" type="date" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="group-label">Signature (draw with finger or mouse)</label>
+        <div class="sigwrap">
+          <canvas id="sigPad"></canvas>
+          <button type="button" class="clear" id="sigClear">Clear</button>
+        </div>
+        <p class="sighint">Optional. Your typed name above also serves as a legal signature.</p>
+      </div>
+    </section>
+
+  </form>
+
+  <div class="footer">JSR Immigration Ltd. · RCIC #R712841 · info@jsrimmigration.com</div>
+</div>
+
+<div class="success" id="successScreen">
+  <div class="check-circle">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+  <h2>Form received</h2>
+  <p>Your visitor visa intake has been securely submitted.</p>
+  <p>A consultant will review and contact you within 1–2 business days.</p>
+  <div class="biz">
+    <div style="font-size:11px; color:var(--text-muted);">RCIC #R712841</div>
+    <div style="font-weight:700; margin-top:4px;">JSR Immigration Ltd.</div>
+    <div style="margin-top:4px;">Brampton, Ontario · <a href="mailto:info@jsrimmigration.com">info@jsrimmigration.com</a></div>
+  </div>
+</div>
+
+</main>
+
+<div class="submit-bar" id="submitBar">
+  <div class="inner">
+    <div class="save-tag" id="saveTag">Auto-saved</div>
+    <button type="button" class="btn-submit" id="submitBtn" form="mainForm">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/>
+      </svg>
+      Submit
+    </button>
+  </div>
+</div>
+
+<div class="err-toast" id="errToast"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+// CONFIG — same web app URL as the other JSR intake forms
+// ════════════════════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby18tjEcOuAMoMJms9xTeyTgA6FBFh_085w11ayLH_ioDo0ZY5NafW7iZmhOIuNZE7Seg/exec';
+const STORAGE_KEY = 'visitor_visa_intake_v1';
+
+// ── Super Visa toggle ──────────────────────────────────────────────
+const superVisaInfo    = document.getElementById('superVisaInfo');
+const superVisaSection = document.getElementById('superVisaSection');
+const headerTitle      = document.getElementById('headerTitle');
+const introTitle       = document.getElementById('introTitle');
+document.querySelectorAll('input[name="super_visa"]').forEach(r => {
+  r.addEventListener('change', e => {
+    const isSuper = e.target.value === 'Yes';
+    superVisaInfo.classList.toggle('show', isSuper);
+    superVisaSection.style.display = isSuper ? 'block' : 'none';
+    headerTitle.textContent = isSuper ? 'Super Visa' : 'Visitor Visa (TRV)';
+    introTitle.textContent  = isSuper ? 'Apply for a Super Visa' : 'Apply to visit Canada';
+    refreshDocChecklistConditionals();
+  });
+});
+
+// ── Basic conditional reveals ──────────────────────────────────────
+const partnerReveal = document.getElementById('partnerReveal');
+document.getElementById('marital_status').addEventListener('change', e => {
+  partnerReveal.classList.toggle('show', e.target.value && e.target.value !== 'Single');
+  refreshDocChecklistConditionals();
+});
+
+document.querySelectorAll('input[name="prior_passport"]').forEach(r => {
+  r.addEventListener('change', e => {
+    document.getElementById('priorPassportReveal').classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+document.querySelectorAll('input[name="previously_married"]').forEach(r => {
+  r.addEventListener('change', e => {
+    document.getElementById('prevMarriedReveal').classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+document.querySelectorAll('input[name="prior_canada"]').forEach(r => {
+  r.addEventListener('change', e => {
+    document.getElementById('priorCanadaReveal').classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+const hostReveal = document.getElementById('hostReveal');
+document.querySelectorAll('input[name="has_host"]').forEach(r => {
+  r.addEventListener('change', e => {
+    hostReveal.classList.toggle('show', e.target.value === 'Yes');
+    refreshDocChecklistConditionals();
+  });
+});
+
+document.querySelectorAll('input[name="family_in_canada"]').forEach(r => {
+  r.addEventListener('change', e => {
+    document.getElementById('familyCanadaReveal').classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+document.querySelectorAll('input[name="has_travel"]').forEach(r => {
+  r.addEventListener('change', e => {
+    document.getElementById('travelReveal').classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+document.querySelectorAll('input[name="has_refusal"]').forEach(r => {
+  r.addEventListener('change', e => {
+    document.getElementById('refusalReveal').classList.toggle('show', e.target.value === 'Yes');
+  });
+});
+
+// ── Repeater infrastructure ────────────────────────────────────────
+function renumberTags(wrap, labelPrefix) {
+  const entries = wrap.querySelectorAll('.entry');
+  entries.forEach((e, i) => {
+    const tag = e.querySelector('.tag');
+    if (tag) tag.textContent = labelPrefix + ' ' + (i + 1);
+  });
+}
+
+function buildChildTemplate(i) {
+  return `
+    <div class="entry" data-repeater="child">
+      <span class="tag">CHILD ${i}</span>
+      <button type="button" class="remove" data-action="remove-entry">Remove</button>
+      <div class="row-2">
+        <div class="field">
+          <label>Full name</label>
+          <input name="child_name_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Date of birth</label>
+          <input name="child_dob_${i}" type="date">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Country of residence</label>
+          <input name="child_country_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Accompanying you on this trip?</label>
+          <select name="child_accompanying_${i}">
+            <option value="">Select…</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildSiblingTemplate(i) {
+  return `
+    <div class="entry" data-repeater="sibling">
+      <span class="tag">SIBLING ${i}</span>
+      <button type="button" class="remove" data-action="remove-entry">Remove</button>
+      <div class="row-2">
+        <div class="field">
+          <label>Full name</label>
+          <input name="sibling_name_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Date of birth</label>
+          <input name="sibling_dob_${i}" type="date">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Country of residence</label>
+          <input name="sibling_country_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Occupation</label>
+          <input name="sibling_occupation_${i}" type="text">
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildCanadaFamilyTemplate(i) {
+  return `
+    <div class="entry" data-repeater="canadaFamily">
+      <span class="tag">IN CANADA ${i}</span>
+      <button type="button" class="remove" data-action="remove-entry">Remove</button>
+      <div class="row-2">
+        <div class="field">
+          <label>Full name</label>
+          <input name="cdn_family_name_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Relationship</label>
+          <input name="cdn_family_relation_${i}" type="text" placeholder="e.g. Son, Sister">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Status in Canada</label>
+          <select name="cdn_family_status_${i}">
+            <option value="">Select…</option>
+            <option>Canadian Citizen</option>
+            <option>Permanent Resident</option>
+            <option>Work Permit</option>
+            <option>Study Permit</option>
+            <option>Visitor</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>City</label>
+          <input name="cdn_family_city_${i}" type="text">
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildTravelTemplate(i) {
+  return `
+    <div class="entry" data-repeater="travel">
+      <span class="tag">TRIP ${i}</span>
+      <button type="button" class="remove" data-action="remove-entry">Remove</button>
+      <div class="row-2">
+        <div class="field">
+          <label>Country</label>
+          <input name="travel_country_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Purpose</label>
+          <input name="travel_purpose_${i}" type="text" placeholder="Tourism, business, family…">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>From</label>
+          <input name="travel_from_${i}" type="date">
+        </div>
+        <div class="field">
+          <label>To</label>
+          <input name="travel_to_${i}" type="date">
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildRefusalTemplate(i) {
+  return `
+    <div class="entry" data-repeater="refusal">
+      <span class="tag">REFUSAL ${i}</span>
+      <button type="button" class="remove" data-action="remove-entry">Remove</button>
+      <div class="row-2">
+        <div class="field">
+          <label>Country</label>
+          <input name="refusal_country_${i}" type="text">
+        </div>
+        <div class="field">
+          <label>Visa / permit type</label>
+          <input name="refusal_type_${i}" type="text" placeholder="Visitor visa, study permit, etc.">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Date of refusal</label>
+          <input name="refusal_date_${i}" type="date">
+        </div>
+        <div class="field">
+          <label>Reason given</label>
+          <input name="refusal_reason_${i}" type="text" placeholder="Short summary">
+        </div>
+      </div>
+    </div>`;
+}
+
+const repeaters = {
+  child:        { wrap: document.getElementById('childrenWrap'),      tpl: buildChildTemplate,         label: 'CHILD' },
+  sibling:      { wrap: document.getElementById('siblingsWrap'),      tpl: buildSiblingTemplate,       label: 'SIBLING' },
+  canadaFamily: { wrap: document.getElementById('canadaFamilyWrap'),  tpl: buildCanadaFamilyTemplate,  label: 'IN CANADA' },
+  travel:       { wrap: document.getElementById('travelWrap'),        tpl: buildTravelTemplate,        label: 'TRIP' },
+  refusal:      { wrap: document.getElementById('refusalWrap'),       tpl: buildRefusalTemplate,       label: 'REFUSAL' }
+};
+
+function addEntry(kind) {
+  const r = repeaters[kind];
+  const count = r.wrap.querySelectorAll('.entry').length;
+  r.wrap.insertAdjacentHTML('beforeend', r.tpl(count + 1));
+}
+
+document.getElementById('addChildBtn')        .addEventListener('click', () => addEntry('child'));
+document.getElementById('addSiblingBtn')      .addEventListener('click', () => addEntry('sibling'));
+document.getElementById('addCanadaFamilyBtn') .addEventListener('click', () => addEntry('canadaFamily'));
+document.getElementById('addTravelBtn')       .addEventListener('click', () => addEntry('travel'));
+document.getElementById('addRefusalBtn')      .addEventListener('click', () => addEntry('refusal'));
+
+document.addEventListener('click', e => {
+  if (e.target && e.target.dataset && e.target.dataset.action === 'remove-entry') {
+    const entry = e.target.closest('.entry');
+    if (!entry) return;
+    const kind = entry.getAttribute('data-repeater');
+    const r = repeaters[kind];
+    entry.remove();
+    if (r) renumberTags(r.wrap, r.label);
+  }
+});
+
+// ── Admissibility questions (6 standard TRV questions) ─────────────
+const aqQuestions = [
+  ['criminal',     'Have you ever been convicted of, or are you currently charged with, any criminal offence in any country?'],
+  ['refusal',      'Have you ever been refused a visa or permit, or denied entry to Canada or any other country?'],
+  ['overstay',     'Have you ever overstayed a visa, remained past a permitted stay, or failed to comply with conditions of your stay in any country?'],
+  ['medical',      'Have you been diagnosed with tuberculosis or any other serious medical condition in the past two years?'],
+  ['military',     'Have you ever served in the military, police, intelligence, or paramilitary forces of any country?'],
+  ['misrep',       'Has anyone ever alleged or accused you of misrepresentation in an immigration matter in any country?']
+];
+const aqWrap = document.getElementById('aqWrap');
+aqQuestions.forEach((q, idx) => {
+  const [k, text] = q;
+  aqWrap.insertAdjacentHTML('beforeend', `
+    <div class="field" style="margin-bottom:18px;">
+      <label class="group-label" style="font-size:14px;">${idx+1}. ${text}<span class="req">*</span></label>
+      <div class="yn">
+        <input type="radio" id="aq_${k}_y" name="aq_${k}" value="Yes" required>
+        <label for="aq_${k}_y">Yes</label>
+        <input type="radio" id="aq_${k}_n" name="aq_${k}" value="No" required>
+        <label for="aq_${k}_n">No</label>
+      </div>
+      <div class="reveal-detail" id="aq_${k}_d">
+        <textarea name="aq_${k}_detail" placeholder="Please provide details…" rows="2"></textarea>
+      </div>
+    </div>`);
+});
+aqWrap.addEventListener('change', e => {
+  if (!e.target.name || !e.target.name.startsWith('aq_')) return;
+  const k = e.target.name.replace('aq_', '');
+  const detail = document.getElementById('aq_' + k + '_d');
+  detail && detail.classList.toggle('show', e.target.value === 'Yes');
+});
+
+// ── Document checklist ─────────────────────────────────────────────
+const docs = [
+  { key:'doc_passport',    label:'Passport (biodata + all visa/stamp pages, valid for your full stay)' },
+  { key:'doc_photo',       label:'Digital passport-style photo (IRCC specification)' },
+  { key:'doc_funds',       label:'Proof of funds (bank statements — 4 months minimum, fixed deposits, salary slips)' },
+  { key:'doc_itinerary',   label:'Trip itinerary / travel plan (flights, hotel, activities)' },
+  { key:'doc_employment',  label:'Employment letter / business registration / pension proof' },
+  { key:'doc_ties',        label:'Ties-to-home proof (property papers, family responsibilities, ongoing studies)' },
+  { key:'doc_invitation',  label:'Invitation letter from Canadian host', requiresHost: true },
+  { key:'doc_host_status', label:'Host\u2019s status document (citizenship card, PR card, work/study permit)', requiresHost: true },
+  { key:'doc_host_income', label:'Host\u2019s income proof (Notice of Assessment, T4, pay stubs — LICO-compliant)', requiresSuper: true },
+  { key:'doc_medical_ins', label:'Medical insurance $100,000+ (Canadian provider, min 1 year)', requiresSuper: true },
+  { key:'doc_marriage',    label:'Marriage certificate', requiresMarried: true }
+];
+const docWrap = document.getElementById('docWrap');
+docs.forEach(doc => {
+  const attrs = [];
+  if (doc.requiresHost)    attrs.push('data-requires-host="1"');
+  if (doc.requiresSuper)   attrs.push('data-requires-super="1"');
+  if (doc.requiresMarried) attrs.push('data-requires-married="1"');
+  docWrap.insertAdjacentHTML('beforeend',
+    `<label class="check" data-key="${doc.key}" ${attrs.join(' ')}>
+      <input type="checkbox" name="${doc.key}" value="1">
+      <span>${doc.label}</span>
+    </label>`);
+});
+
+function refreshDocChecklistConditionals() {
+  const hostYes = document.querySelector('input[name="has_host"]:checked');
+  const superYes = document.querySelector('input[name="super_visa"]:checked');
+  const married = document.getElementById('marital_status').value;
+  const hostOn    = !!(hostYes && hostYes.value === 'Yes');
+  const superOn   = !!(superYes && superYes.value === 'Yes');
+  const marriedOn = (married === 'Married' || married === 'Common-Law');
+
+  const gate = (selector, on) => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.classList.toggle('disabled', !on);
+      const cb = el.querySelector('input');
+      if (cb) cb.disabled = !on;
+      if (!on && cb) cb.checked = false;
+    });
+  };
+  // Super Visa implies host too
+  gate('.check[data-requires-host]',    hostOn || superOn);
+  gate('.check[data-requires-super]',   superOn);
+  gate('.check[data-requires-married]', marriedOn);
+}
+refreshDocChecklistConditionals();
+
+// ── Signature pad ──────────────────────────────────────────────────
+const canvas = document.getElementById('sigPad');
+const ctx = canvas.getContext('2d');
+let drawing = false, lastX = 0, lastY = 0, hasDrawn = false;
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#15202b';
+}
+window.addEventListener('load', resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
+
+function pos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const t = e.touches ? e.touches[0] : e;
+  return [t.clientX - rect.left, t.clientY - rect.top];
+}
+function startDraw(e) { e.preventDefault(); drawing = true; [lastX, lastY] = pos(e); }
+function moveDraw(e)  {
+  if (!drawing) return; e.preventDefault();
+  const [x, y] = pos(e);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
+  [lastX, lastY] = [x, y]; hasDrawn = true;
+}
+function endDraw() { drawing = false; }
+canvas.addEventListener('mousedown', startDraw);  canvas.addEventListener('mousemove', moveDraw);
+canvas.addEventListener('mouseup', endDraw);     canvas.addEventListener('mouseout', endDraw);
+canvas.addEventListener('touchstart', startDraw, {passive:false});
+canvas.addEventListener('touchmove', moveDraw, {passive:false});
+canvas.addEventListener('touchend', endDraw);
+document.getElementById('sigClear').addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hasDrawn = false;
+});
+
+document.getElementById('sig_date').valueAsDate = new Date();
+
+// ── Autosave ───────────────────────────────────────────────────────
+const form = document.getElementById('mainForm');
+const saveTag = document.getElementById('saveTag');
+let saveTimer;
+
+function snapshot() {
+  const data = {};
+  new FormData(form).forEach((v, k) => { data[k] = v; });
+  ['consent1', 'consent2', 'sv_host_lico', 'sv_medical_insurance', 'sv_invitation_letter']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if (el) data[id] = el.checked;
+    });
+  docs.forEach(doc => {
+    const cb = form.querySelector(`input[name="${doc.key}"]`);
+    data[doc.key] = !!(cb && cb.checked && !cb.disabled);
+  });
+  // Persist repeater counts for restore
+  Object.keys(repeaters).forEach(k => {
+    data['_count_' + k] = repeaters[k].wrap.querySelectorAll('.entry').length;
+  });
+  return data;
+}
+function saveLocal() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot()));
+    saveTag.textContent = 'Auto-saved · ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  } catch (e) {}
+}
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    // First, re-create any repeater entries so their fields exist
+    Object.keys(repeaters).forEach(k => {
+      const count = parseInt(data['_count_' + k] || 0, 10);
+      for (let i = 0; i < count; i++) addEntry(k);
+    });
+    Object.keys(data).forEach(k => {
+      if (k.startsWith('_count_')) return;
+      const el = form.elements[k];
+      if (!el) return;
+      if (el.type === 'radio' || (el.length && el[0] && el[0].type === 'radio')) {
+        const radios = form.querySelectorAll(`[name="${k}"]`);
+        radios.forEach(r => { if (r.value === data[k]) { r.checked = true; r.dispatchEvent(new Event('change', {bubbles:true})); } });
+      } else if (el.type === 'checkbox') {
+        el.checked = !!data[k];
+      } else {
+        el.value = data[k];
+      }
+    });
+    refreshDocChecklistConditionals();
+  } catch (e) {}
+}
+form.addEventListener('input',  () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveLocal, 500); });
+form.addEventListener('change', () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveLocal, 200); });
+loadLocal();
+
+// ── Validate ───────────────────────────────────────────────────────
+const REQUIRED = [
+  ['full_name',           'Full legal name'],
+  ['dob',                 'Date of birth'],
+  ['sex',                 'Sex'],
+  ['native_language',     'Native language'],
+  ['country_birth',       'Country of birth'],
+  ['city_birth',          'City of birth'],
+  ['citizenship',         'Country of citizenship'],
+  ['country_residence',   'Country of current residence'],
+  ['passport_number',     'Passport number'],
+  ['passport_country',    'Passport country of issue'],
+  ['passport_issued',     'Passport issue date'],
+  ['passport_expiry',     'Passport expiry date'],
+  ['phone',               'Phone number'],
+  ['email',               'Email address'],
+  ['address_street',      'Street address'],
+  ['address_city',        'City'],
+  ['address_province',    'State / Province'],
+  ['address_country',     'Country of address'],
+  ['marital_status',      'Marital status'],
+  ['visit_purpose',       'Purpose of visit'],
+  ['visit_purpose_detail','Trip description'],
+  ['intended_arrival',    'Intended arrival date'],
+  ['intended_departure',  'Intended departure date'],
+  ['cities_to_visit',     'Cities you plan to visit'],
+  ['who_pays',            'Who is paying for the trip'],
+  ['applicant_occupation','Your occupation'],
+  ['savings_amount',      'Savings / bank balance'],
+  ['funds_source',        'Source of funds'],
+  ['sig_name',            'Typed signature (full name)'],
+  ['sig_date',            'Signature date']
+];
+
+const errToast = document.getElementById('errToast');
+function showError(msg) {
+  errToast.textContent = msg;
+  errToast.classList.add('show');
+  setTimeout(() => errToast.classList.remove('show'), 5000);
+}
+
+function validate() {
+  for (const [name, label] of REQUIRED) {
+    const el = form.elements[name];
+    if (!el || !String(el.value || '').trim()) {
+      el && el.focus();
+      el && el.scrollIntoView({behavior:'smooth', block:'center'});
+      showError('Missing: ' + label);
+      return false;
+    }
+  }
+  const email = form.elements['email'].value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showError('Email address looks invalid.');
+    form.elements['email'].focus();
+    return false;
+  }
+  // Required Yes/No radio groups
+  const requiredYN = [
+    ['super_visa',       'Are you applying for a Super Visa?'],
+    ['prior_canada',     'Have you visited Canada before?'],
+    ['has_host',         'Do you have a host in Canada?'],
+    ['family_in_canada', 'Do you have family in Canada?'],
+    ['has_travel',       'Have you travelled in the last 10 years?'],
+    ['has_refusal',      'Have you ever been refused a visa?']
+  ];
+  for (const [name, label] of requiredYN) {
+    if (!form.querySelector(`input[name="${name}"]:checked`)) {
+      showError('Please answer: ' + label);
+      const y = document.getElementById(name + '_y');
+      y && y.closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+      return false;
+    }
+  }
+  // Super Visa: extras required
+  const superYes = form.querySelector('input[name="super_visa"]:checked');
+  if (superYes && superYes.value === 'Yes') {
+    const rel = form.elements['sv_host_relation'];
+    if (!rel || !rel.value) {
+      showError('Super Visa: select your host\u2019s relationship.');
+      rel && rel.focus();
+      rel && rel.scrollIntoView({behavior:'smooth', block:'center'});
+      return false;
+    }
+    const allChecked = ['sv_host_lico','sv_medical_insurance','sv_invitation_letter']
+      .every(id => document.getElementById(id) && document.getElementById(id).checked);
+    if (!allChecked) {
+      showError('Super Visa: please confirm all three requirement boxes.');
+      document.getElementById('sv_host_lico').scrollIntoView({behavior:'smooth', block:'center'});
+      return false;
+    }
+  }
+  // Admissibility
+  for (let i = 0; i < aqQuestions.length; i++) {
+    const k = aqQuestions[i][0];
+    const checked = form.querySelector('input[name="aq_' + k + '"]:checked');
+    if (!checked) {
+      showError('Admissibility Q' + (i + 1) + ' needs a Yes or No answer.');
+      const yn = document.getElementById('aq_' + k + '_y');
+      yn && yn.closest('.field').scrollIntoView({behavior:'smooth', block:'center'});
+      return false;
+    }
+    if (checked.value === 'Yes') {
+      const detail = form.elements['aq_' + k + '_detail'];
+      if (!detail || !detail.value.trim()) {
+        showError('Q' + (i + 1) + ' answered "Yes" — please add details.');
+        detail && detail.focus();
+        detail && detail.scrollIntoView({behavior:'smooth', block:'center'});
+        return false;
+      }
+    }
+  }
+  // Consent
+  if (!document.getElementById('consent1').checked || !document.getElementById('consent2').checked) {
+    showError('Please tick both authorization boxes at the bottom.');
+    document.getElementById('consent1').scrollIntoView({behavior:'smooth', block:'center'});
+    return false;
+  }
+  return true;
+}
+
+// ── Serialize repeaters for payload ────────────────────────────────
+function collectRepeater(wrap, kind) {
+  const entries = wrap.querySelectorAll('.entry');
+  const out = [];
+  entries.forEach((entry, idx) => {
+    const i = idx + 1;
+    const obj = { _n: i };
+    entry.querySelectorAll('input, select').forEach(el => {
+      if (!el.name) return;
+      const baseName = el.name.replace(/_\d+$/, '');
+      obj[baseName] = el.value || '';
+    });
+    out.push(obj);
+  });
+  return out;
+}
+
+// ── Submit ─────────────────────────────────────────────────────────
+const btn = document.getElementById('submitBtn');
+btn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
+
+  btn.disabled = true;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<span class="spin"></span> Submitting…';
+
+  const data = snapshot();
+  data.form_type = 'visitor_visa';
+  data.submission_timestamp = new Date().toISOString();
+  data.signature_image = hasDrawn ? canvas.toDataURL('image/png') : '';
+  data.children_list     = collectRepeater(repeaters.child.wrap,         'child');
+  data.siblings_list     = collectRepeater(repeaters.sibling.wrap,       'sibling');
+  data.canada_family_list= collectRepeater(repeaters.canadaFamily.wrap,  'canadaFamily');
+  data.travel_list       = collectRepeater(repeaters.travel.wrap,        'travel');
+  data.refusal_list      = collectRepeater(repeaters.refusal.wrap,       'refusal');
+
+  const body = new URLSearchParams();
+  body.append('payload', JSON.stringify(data));
+
+  try {
+    if (APPS_SCRIPT_URL.includes('PASTE_WEB_APP_URL_HERE')) {
+      throw new Error('Form not configured. APPS_SCRIPT_URL is missing.');
+    }
+    const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body });
+    let result = {};
+    try { result = await res.json(); } catch (_) {}
+    if (!res.ok || result.status === 'error') {
+      throw new Error(result.message || ('HTTP ' + res.status));
+    }
+    localStorage.removeItem(STORAGE_KEY);
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+    document.getElementById('submitBar').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+    showError('Submission failed: ' + err.message + '. Email info@jsrimmigration.com if this persists.');
+  }
+});
+</script>
+
+</body>
+</html>
