@@ -17,10 +17,19 @@ const SPREADSHEET_ID  = 'YOUR_SPREADSHEET_ID_HERE';   // Google Sheet ID (from i
 const DRIVE_FOLDER_ID = 'YOUR_DRIVE_FOLDER_ID_HERE';  // Parent "Open Files" folder ID
 const RCIC_EMAIL      = 'info@jsrimmigration.com';    // Your email (receives draft)
 
+// Maximum characters of the client's situation text included inline in the email body.
+// The full text is always stored in the PDF and the Google Sheet.
+const MAX_EMAIL_SITUATION_LENGTH = 800;
+
 // ════════════════════════════════════════════════════════════════════
 // ENTRY POINT
 // ════════════════════════════════════════════════════════════════════
 function doPost(e) {
+  // Guard against un-configured deployment
+  if (SPREADSHEET_ID === 'YOUR_SPREADSHEET_ID_HERE' || DRIVE_FOLDER_ID === 'YOUR_DRIVE_FOLDER_ID_HERE') {
+    return jsonResponse('error', 'Apps Script not configured: please set SPREADSHEET_ID and DRIVE_FOLDER_ID in Code.gs before deploying.');
+  }
+
   try {
     const payload = JSON.parse(e.parameter.payload);
     const formType = payload.form_type || 'unknown';
@@ -304,7 +313,9 @@ function buildWorkPermitSummary(d) {
 // ════════════════════════════════════════════════════════════════════
 function draftWorkPermitEmail(name, clientEmail, category, situation, summary, folderUrl, dateStr) {
   const subject  = 'WP Intake — ' + name + ' — ' + dateStr;
-  const truncSit = situation.length > 800 ? situation.slice(0, 800) + '…' : situation;
+  const truncSit = situation.length > MAX_EMAIL_SITUATION_LENGTH
+    ? situation.slice(0, MAX_EMAIL_SITUATION_LENGTH) + '…'
+    : situation;
   const body =
     'New Work Permit intake received.\n\n' +
     'Client:       ' + name        + '\n' +
