@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a3a5c">
 <meta name="description" content="JSR Immigration Ltd. — PGWP intake form. Submit your post-graduate work permit application details securely.">
-<title>PGWP Intake · JSR Immigration Ltd.</title>
+<title>Work Permit Intake · JSR Immigration Ltd.</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231a3a5c'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='44' fill='%23fff'%3EJSR%3C/text%3E%3C/svg%3E">
 <style>
   *,*::before,*::after { box-sizing: border-box; }
@@ -383,7 +383,7 @@
   <div class="brand">
     <div class="brand-mark">JSR</div>
     <div class="brand-text">
-      <h1>PGWP Intake Form</h1>
+      <h1>Work Permit Intake Form</h1>
       <p>JSR Immigration Ltd. · RCIC #R712841</p>
     </div>
   </div>
@@ -395,8 +395,20 @@
 
   <div class="intro">
     <h2>Welcome</h2>
-    <p>This form takes about 10–15 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Post-Graduate Work Permit application.</p>
-    <p style="margin-top:10px;font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Please have your <strong>passport, study permit, and full Canadian address</strong> ready before you start.</p>
+    <p>This form takes about 10–15 minutes. Your answers save automatically as you type. All information is sent securely to JSR Immigration Ltd. for your Work Permit application.</p>
+
+    <div class="field" style="margin-top:16px;">
+      <label for="work_permit_type" style="font-size:var(--t-xs);font-weight:600;letter-spacing:0.02em;">Work permit type<span class="req">*</span></label>
+      <select id="work_permit_type" name="work_permit_type" required>
+        <option value="">Select your work permit type…</option>
+        <option value="PGWP">Post-Graduate Work Permit (PGWP)</option>
+        <option value="LMIA">LMIA Work Permit</option>
+        <option value="LMIA-Exempt">LMIA-Exempt Work Permit</option>
+        <option value="Public Policy">Public Policy Work Permit</option>
+      </select>
+    </div>
+
+    <p style="margin-top:10px;font-size:13px;color:var(--text-muted);"><strong style="color:var(--error);">*</strong> marks a required field. Please have your <strong>passport, current immigration status document, and full Canadian address</strong> ready before you start.</p>
   </div>
 
   <form id="mainForm" autocomplete="on" novalidate>
@@ -618,13 +630,44 @@
       <div id="aqWrap"></div>
     </section>
 
-    <!-- ─── 10 DECLARATION ───────────────────────────── -->
+    <!-- ─── 11 APPLICATION BACKGROUND ──────────────────── -->
     <section class="card">
-      <h3><span class="num">10</span>Declaration &amp; signature</h3>
+      <h3><span class="num">11</span>Application background</h3>
+      <p class="lead">Required. Please answer all four questions in your own words. This helps us prepare your file.</p>
+
+      <div class="field">
+        <label for="bg_program">Under which program are you applying?<span class="req">*</span></label>
+        <input id="bg_program" name="bg_program" type="text" required
+          placeholder="e.g. PGWP stream, C11 Entrepreneur, IMP stream C42, Public Policy 2024…">
+        <span class="help">Name the specific IRCC program or stream you qualify under.</span>
+      </div>
+
+      <div class="field">
+        <label for="bg_what_did">What have you done? (your background)<span class="req">*</span></label>
+        <textarea id="bg_what_did" name="bg_what_did" required
+          placeholder="Briefly describe your education, work history, or other relevant background…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="bg_why_apply">Why do you want to apply for a work permit?<span class="req">*</span></label>
+        <textarea id="bg_why_apply" name="bg_why_apply" required
+          placeholder="Explain your goal and why you need this work permit…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="bg_which_wp">Which work permit do you want to apply for? (in your own words)<span class="req">*</span></label>
+        <textarea id="bg_which_wp" name="bg_which_wp" required
+          placeholder="e.g. I want to apply for an open work permit under the PGWP program because I just completed my 2-year diploma…"></textarea>
+      </div>
+    </section>
+
+    <!-- ─── 12 DECLARATION ───────────────────────────── -->
+    <section class="card">
+      <h3><span class="num">12</span>Declaration &amp; signature</h3>
 
       <div class="decl-box">
         <p><strong>Declaration of accuracy.</strong> I declare that the information provided in this form is true, complete, and accurate to the best of my knowledge. I understand that providing false or misleading information constitutes misrepresentation under section 40 of the <em>Immigration and Refugee Protection Act</em> (IRPA), which may result in a finding of inadmissibility.</p>
-        <p><strong>Authorization.</strong> I authorize JSR Immigration Ltd. and its licensed representatives (RCIC #R712841) to use the information in this form to prepare and submit my PGWP application and to communicate with IRCC on my behalf.</p>
+        <p><strong>Authorization.</strong> I authorize JSR Immigration Ltd. and its licensed representatives (RCIC #R712841) to use the information in this form to prepare and submit my Work Permit application and to communicate with IRCC on my behalf.</p>
       </div>
 
       <label class="check">
@@ -705,7 +748,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby18tjEcOuAMoMJ
 // ════════════════════════════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════════════════════════════
-const STORAGE_KEY = 'pgwp_intake_v2';
+const STORAGE_KEY = 'wp_intake_v1';
 
 // ── 1. EDUCATION repeater ───────────────────────────────────────────
 const eduList = document.getElementById('eduList');
@@ -922,6 +965,7 @@ function showError(msg) {
 
 // Friendly labels for each required field — used in error messages.
 const REQUIRED = [
+  ['work_permit_type', 'Work permit type'],
   ['full_name',        'Full legal name'],
   ['dob',              'Date of birth'],
   ['country_birth',    'Country of birth'],
@@ -937,6 +981,10 @@ const REQUIRED = [
   ['address_city',     'City'],
   ['address_province', 'Province'],
   ['postal_code',      'Postal code'],
+  ['bg_program',       'Application background — program'],
+  ['bg_what_did',      'Application background — what you did'],
+  ['bg_why_apply',     'Application background — reason for applying'],
+  ['bg_which_wp',      'Application background — which work permit'],
   ['sig_name',         'Typed signature (full name)'],
   ['sig_date',         'Signature date']
 ];
