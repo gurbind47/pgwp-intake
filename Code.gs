@@ -2,20 +2,52 @@
 // JSR Immigration Ltd. — Unified Intake Apps Script
 // Handles: pgwp | visitor_visa | visitor_record | study_extension | work_permit
 //
-// HOW TO DEPLOY:
-//   1. Open script.google.com → New project
-//   2. Paste this entire file into Code.gs
-//   3. Update SPREADSHEET_ID, DRIVE_FOLDER_ID, and RCIC_EMAIL below
+// ── UPDATING YOUR EXISTING SCRIPT (most common case) ─────────────────
+//
+//   Your existing Apps Script project is already deployed at:
+//   https://script.google.com/macros/s/AKfycby18tjEcOuAMoMJms9xTeyTgA6FBFh_085w11ayLH_ioDo0ZY5NafW7iZmhOIuNZE7Seg/exec
+//
+//   STEP 1 ── In your Apps Script editor, look at the top of your
+//             EXISTING Code.gs.  Copy the values of SPREADSHEET_ID
+//             and DRIVE_FOLDER_ID from there and paste them below.
+//             (RCIC_EMAIL is already pre-filled for you.)
+//
+//   STEP 2 ── Select all the text in the editor and replace it with
+//             this entire file (keeping the values you just copied).
+//
+//   STEP 3 ── Click Save (💾), then run checkSetup() from the
+//             Run menu to confirm everything is wired up correctly.
+//
+//   STEP 4 ── Deploy → Manage deployments → click the pencil on your
+//             existing deployment → Version: New version → Deploy.
+//             The web app URL does NOT change on redeploy, so all
+//             HTML forms continue to work without any edits.
+//
+// ── FRESH INSTALL (no existing script) ───────────────────────────────
+//
+//   1. script.google.com → New project
+//   2. Paste this file into Code.gs
+//   3. Set SPREADSHEET_ID and DRIVE_FOLDER_ID below
 //   4. Deploy → New deployment → Web app
-//      Execute as: Me | Who has access: Anyone
-//   5. Copy the web app URL into each index.html's APPS_SCRIPT_URL constant
+//      Execute as: Me  |  Who has access: Anyone
+//   5. Update APPS_SCRIPT_URL in every index.html with the new URL
 // ════════════════════════════════════════════════════════════════════
 
-// ── CONFIG ──────────────────────────────────────────────────────────
-// Replace these three values with your own:
-const SPREADSHEET_ID  = 'YOUR_SPREADSHEET_ID_HERE';   // Google Sheet ID (from its URL)
-const DRIVE_FOLDER_ID = 'YOUR_DRIVE_FOLDER_ID_HERE';  // Parent "Open Files" folder ID
-const RCIC_EMAIL      = 'info@jsrimmigration.com';    // Your email (receives draft)
+// ════════════════════════════════════════════════════════════════════
+// ★  CONFIG — only these two values need to be filled in  ★
+// ════════════════════════════════════════════════════════════════════
+//
+//  SPREADSHEET_ID  →  Open your Google Sheet → look at its URL:
+//    https://docs.google.com/spreadsheets/d/  ← this long string →  /edit
+//    Copy the long string between /d/ and /edit
+//
+//  DRIVE_FOLDER_ID →  Open the "Open Files" folder in Google Drive → look at its URL:
+//    https://drive.google.com/drive/folders/  ← this long string →
+//    Copy the string after /folders/
+//
+const SPREADSHEET_ID  = 'YOUR_SPREADSHEET_ID_HERE';   // ← paste your Sheet ID here
+const DRIVE_FOLDER_ID = 'YOUR_DRIVE_FOLDER_ID_HERE';  // ← paste your Drive folder ID here
+const RCIC_EMAIL      = 'info@jsrimmigration.com';    // already correct — do not change
 
 // Maximum characters of the client's situation text included inline in the email body.
 // The full text is always stored in the PDF and the Google Sheet.
@@ -49,7 +81,56 @@ function doPost(e) {
 }
 
 // ════════════════════════════════════════════════════════════════════
-// WORK PERMIT HANDLER
+// SETUP CHECKER — Run this from the Apps Script editor to verify
+// your configuration before redeploying.
+//   1. Select "checkSetup" in the function dropdown at the top
+//   2. Click ▶ Run
+//   3. Open View → Logs to see the results
+// ════════════════════════════════════════════════════════════════════
+function checkSetup() {
+  const log = [];
+
+  // Check SPREADSHEET_ID
+  if (SPREADSHEET_ID === 'YOUR_SPREADSHEET_ID_HERE') {
+    log.push('❌  SPREADSHEET_ID is still the placeholder — paste your real Sheet ID.');
+  } else {
+    try {
+      const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+      log.push('✅  Google Sheet found: "' + ss.getName() + '"');
+    } catch (e) {
+      log.push('❌  Cannot open Google Sheet (ID: ' + SPREADSHEET_ID + '). Error: ' + e.message);
+    }
+  }
+
+  // Check DRIVE_FOLDER_ID
+  if (DRIVE_FOLDER_ID === 'YOUR_DRIVE_FOLDER_ID_HERE') {
+    log.push('❌  DRIVE_FOLDER_ID is still the placeholder — paste your real Drive folder ID.');
+  } else {
+    try {
+      const folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
+      log.push('✅  Drive folder found: "' + folder.getName() + '"');
+    } catch (e) {
+      log.push('❌  Cannot open Drive folder (ID: ' + DRIVE_FOLDER_ID + '). Error: ' + e.message);
+    }
+  }
+
+  // Check RCIC_EMAIL
+  log.push('✅  RCIC_EMAIL: ' + RCIC_EMAIL);
+
+  // Summary
+  const allOk = log.every(l => l.startsWith('✅'));
+  log.push('');
+  log.push(allOk
+    ? '🎉  All checks passed — safe to redeploy!'
+    : '⚠️   Fix the issues above, then run checkSetup() again before redeploying.');
+
+  Logger.log(log.join('\n'));
+  // Also show as a UI alert if running interactively
+  try {
+    SpreadsheetApp.getUi().alert(log.join('\n'));
+  } catch (_) {}
+}
+
 // ════════════════════════════════════════════════════════════════════
 function handleWorkPermit(d) {
   const name      = d.full_name        || 'Unknown';
