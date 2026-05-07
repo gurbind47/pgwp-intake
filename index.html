@@ -587,12 +587,12 @@
 
       <div class="row-2">
         <div class="field">
-          <label for="first_entry_date">First entry date</label>
-          <input id="first_entry_date" name="first_entry_date" type="date">
+          <label for="first_entry_date">First entry date<span class="req">*</span></label>
+          <input id="first_entry_date" name="first_entry_date" type="date" required>
         </div>
         <div class="field">
-          <label for="first_entry_place">First port of entry</label>
-          <input id="first_entry_place" name="first_entry_place" type="text" placeholder="e.g. Toronto Pearson (YYZ)">
+          <label for="first_entry_place">First port of entry<span class="req">*</span></label>
+          <input id="first_entry_place" name="first_entry_place" type="text" placeholder="e.g. Toronto Pearson (YYZ)" required>
         </div>
       </div>
       <div class="row-2">
@@ -649,15 +649,15 @@
       </div>
 
       <div class="field">
-        <label for="bg_why_apply">Why do you want to apply for a work permit?<span class="req">*</span></label>
-        <textarea id="bg_why_apply" name="bg_why_apply" required
-          placeholder="Explain your goal and why you need this work permit…"></textarea>
+        <label for="bg_why_apply">Why do you want to apply for a work permit?</label>
+        <textarea id="bg_why_apply" name="bg_why_apply"
+          placeholder="Optional. Explain your goal and why you need this work permit…"></textarea>
       </div>
 
       <div class="field">
-        <label for="bg_which_wp">Which work permit do you want to apply for? (in your own words)<span class="req">*</span></label>
-        <textarea id="bg_which_wp" name="bg_which_wp" required
-          placeholder="e.g. I want to apply for an open work permit under the PGWP program because I just completed my 2-year diploma…"></textarea>
+        <label for="bg_which_wp">Which work permit do you want to apply for? (in your own words)</label>
+        <textarea id="bg_which_wp" name="bg_which_wp"
+          placeholder="Optional. e.g. I want to apply for an open work permit under the PGWP program because I just completed my 2-year diploma…"></textarea>
       </div>
     </section>
 
@@ -992,10 +992,10 @@ const REQUIRED = [
   ['address_city',     'City'],
   ['address_province', 'Province'],
   ['postal_code',      'Postal code'],
+  ['first_entry_date', 'First entry date'],
+  ['first_entry_place','First port of entry'],
   ['bg_program',       'Application background — program'],
   ['bg_what_did',      'Application background — what you did'],
-  ['bg_why_apply',     'Application background — reason for applying'],
-  ['bg_which_wp',      'Application background — which work permit'],
   ['sig_name',         'Typed signature (full name)'],
   ['sig_date',         'Signature date']
 ];
