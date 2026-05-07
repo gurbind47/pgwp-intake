@@ -399,7 +399,7 @@
 
     <div class="field" style="margin-top:16px;">
       <label for="work_permit_type" style="font-size:var(--t-xs);font-weight:600;letter-spacing:0.02em;">Work permit type<span class="req">*</span></label>
-      <select id="work_permit_type" name="work_permit_type" required>
+      <select id="work_permit_type" name="work_permit_type" form="mainForm" required>
         <option value="">Select your work permit type…</option>
         <option value="PGWP">Post-Graduate Work Permit (PGWP)</option>
         <option value="LMIA">LMIA Work Permit</option>
@@ -951,7 +951,18 @@ form.addEventListener('change', () => {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(saveLocal, 200);
 });
+// work_permit_type select sits outside <form> in the intro card; events don't bubble to it.
+document.getElementById('work_permit_type').addEventListener('change', () => {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveLocal, 200);
+});
 loadLocal();
+// Restore work_permit_type from cache (form.elements lookup in loadLocal works via form="" attr,
+// but only after initial paint — re-read here defensively in case load order varies).
+try {
+  const cached = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  if (cached.work_permit_type) document.getElementById('work_permit_type').value = cached.work_permit_type;
+} catch (e) {}
 
 // ── 6. SUBMIT ───────────────────────────────────────────────────────
 const btn = document.getElementById('submitBtn');
